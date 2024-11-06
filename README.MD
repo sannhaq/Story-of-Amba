@@ -23,6 +23,7 @@
 1. **Kloning Repository**
    ```bash
    git clone https://github.com/username/story-of-amba.git
+   ```bash
    cd story-of-amba
 
 2. **Instalasi Library yang Dibutuhkan**
