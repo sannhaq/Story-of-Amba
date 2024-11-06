@@ -37,7 +37,7 @@
    ```bash
    python main.py
 
-3. Ikuti petunjuk di layar untuk memasukkan nama karakter dan memulai petualangan Anda di Story of Amba.
+3. Ikuti petunjuk di layar untuk memasukkan nama karakter dan memulai petualangan Anda di *Story of Amba*.
 
 ## 💾 Sistem Checkpoint
 
