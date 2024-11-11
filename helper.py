@@ -36,3 +36,18 @@ def delete_checkpoint():
 def clear_console():
     """Menghapus layar console."""
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def play_sound(sound_file):
+    """Memutar file suara yang diberikan."""
+    sound_file_path = os.path.join('assets/sounds', sound_file).replace('\\', '/')
+    
+    # Inisialisasi pygame mixer untuk memutar suara
+    pygame.mixer.init()
+    
+    # Memuat suara
+    pygame.mixer.music.load(sound_file_path)
+    pygame.mixer.music.play()
+
+    # Tunggu hingga suara selesai diputar
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)  # Menjaga agar program tidak mengganggu suara
