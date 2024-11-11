@@ -25,18 +25,6 @@ def load_checkpoint():
         clear_console()
         return None  # Mengembalikan None jika tidak ada checkpoint
 
-def delete_checkpoint():
-    """Menghapus file checkpoint jika ada."""
-    if os.path.exists(CHECKPOINT_FILE):
-        os.remove(CHECKPOINT_FILE)
-        print("Checkpoint dihapus.")
-    else:
-        print("Tidak ada checkpoint yang ditemukan untuk dihapus.")
-
-
-
-
-
 def play_sound(sound_file):
     """Memutar file suara yang diberikan."""
     sound_file_path = os.path.join('assets/sounds', sound_file).replace('\\', '/')
