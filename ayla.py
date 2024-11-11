@@ -1,1 +1,0 @@
-print("ini dibuat oleh ayla")
