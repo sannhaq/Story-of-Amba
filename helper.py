@@ -51,3 +51,20 @@ def play_sound(sound_file):
     # Tunggu hingga suara selesai diputar
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)  # Menjaga agar program tidak mengganggu suara
+        
+# Fungsi untuk mencetak teks dengan efek typewriter
+def typewriter(text, typing_sound_file='typing.mp3', delay=0.05):
+    """Menampilkan teks dengan efek typewriter dan suara ketikan."""
+    # Jalankan suara ketikan di thread terpisah
+    sound_thread = threading.Thread(target=play_sound, args=(typing_sound_file,))
+    sound_thread.start()  # Memulai suara ketikan
+
+    for char in text:
+        sys.stdout.write(char)  # Menulis karakter ke console
+        sys.stdout.flush()  # Memaksa output ke console
+        time.sleep(delay)  # Delay antara karakter
+
+    # Hentikan suara ketikan setelah selesai
+    pygame.mixer.music.stop()
+    sound_thread.join()  # Tunggu hingga suara ketikan selesai
+    print()  # Pindah ke baris baru setelah teks selesai dicetak
