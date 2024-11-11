@@ -36,11 +36,3 @@ def delete_checkpoint():
 def clear_console():
     """Menghapus layar console."""
     os.system('cls' if os.name == 'nt' else 'clear')
-
-def delete_checkpoint():
-    """Menghapus file checkpoint jika ada."""
-    if os.path.exists(CHECKPOINT_FILE):
-        os.remove(CHECKPOINT_FILE)
-        print("Checkpoint dihapus.")
-    else:
-        print("Tidak ada checkpoint yang ditemukan untuk dihapus.")
