@@ -5,10 +5,18 @@ import sys
 import threading
 import time
 
-CHECKPOINT_FILE = 'checkpoint.json' 
+CHECKPOINT_DIR = 'checkpoints'
+CHECKPOINT_FILE = os.path.join(CHECKPOINT_DIR, 'checkpoint.json')
+
+def ensure_checkpoint_dir():
+    """Membuat folder checkpoints jika belum ada."""
+    if not os.path.exists(CHECKPOINT_DIR):
+        os.makedirs(CHECKPOINT_DIR)
+        print(f"Folder '{CHECKPOINT_DIR}' dibuat untuk menyimpan checkpoint.")
 
 def save_checkpoint(state):
     """Menyimpan state permainan ke file checkpoint."""
+    ensure_checkpoint_dir()  # Pastikan folder checkpoints sudah ada
     with open(CHECKPOINT_FILE, 'w') as file:
         json.dump(state, file)
     print("\nCheckpoint tersimpan.")
