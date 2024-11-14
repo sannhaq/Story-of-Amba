@@ -4,6 +4,8 @@ import pygame
 import sys
 import threading
 import time
+from InquirerPy import prompt
+import sys
 
 CHECKPOINT_DIR = 'checkpoints'
 CHECKPOINT_FILE = os.path.join(CHECKPOINT_DIR, 'checkpoint.json')
@@ -84,3 +86,44 @@ def typewriter(text, typing_sound_file='typing.mp3', delay=0.05):
     pygame.mixer.music.stop()
     sound_thread.join()  # Tunggu hingga suara ketikan selesai
     print()  # Pindah ke baris baru setelah teks selesai dicetak
+
+def game_over_prompt(game_state, load_checkpoint, display_state, restart_chapter, restart_args=()):
+    """Menampilkan pesan Game Over dan memberikan opsi untuk mengulang dari checkpoint."""
+    typewriter("Game Over, apakah anda ingin mengulang game dari checkpoint?")
+    
+    # Menampilkan prompt pilihan ulang
+    questions = [
+        {
+            'type': 'confirm',
+            'name': 'restart',
+            'message': 'Apakah anda ingin mengulang dari checkpoint?',
+            'default': True
+        }
+    ]
+    restart_answer = prompt(questions)
+    
+    if restart_answer['restart']:
+        # Memuat ulang state dari checkpoint dan memulai ulang chapter
+        game_state.update(load_checkpoint())  # Update game_state dengan checkpoint
+        display_state(game_state)  # Menampilkan state saat ini
+        restart_chapter(*restart_args)  # Mengulang chapter dengan argumen tambahan
+    else:
+        print("Permainan berakhir. Terima kasih telah bermain!")
+        sys.exit()
+
+def process_player_choice(event_func, game_state, message, options, fail_func, display_state):
+    questions = [
+        {
+            'type': 'list',
+            'name': 'action',
+            'message': message,
+            'choices': options
+        }
+    ]
+    answers = prompt(questions)
+    clear_console()
+
+    if answers['action'] == 'benar':
+        event_func(game_state['nama_karakter'])
+    else:
+        game_over_prompt(game_state, load_checkpoint, display_state, fail_func)
