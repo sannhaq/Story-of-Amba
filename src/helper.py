@@ -47,19 +47,27 @@ def clear_console():
 
 def play_sound(sound_file):
     """Memutar file suara yang diberikan."""
+    # Tentukan path file suara
     sound_file_path = os.path.join('assets/sounds', sound_file).replace('\\', '/')
     
-    # Inisialisasi pygame mixer untuk memutar suara
-    pygame.mixer.init()
-    
-    # Memuat suara
-    pygame.mixer.music.load(sound_file_path)
-    pygame.mixer.music.play()
-
-    # Tunggu hingga suara selesai diputar
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)  # Menjaga agar program tidak mengganggu suara
+    # Periksa apakah file suara ada
+    if os.path.exists(sound_file_path):
+        # Inisialisasi pygame mixer untuk memutar suara
+        pygame.mixer.init()
         
+        # Memuat dan memutar suara
+        try:
+            pygame.mixer.music.load(sound_file_path)
+            pygame.mixer.music.play()
+            
+            # Tunggu hingga suara selesai diputar
+            while pygame.mixer.music.get_busy():
+                pygame.time.Clock().tick(10)  # Menjaga agar program tidak mengganggu suara
+        except pygame.error as e:
+            print(f"Gagal memutar suara '{sound_file}': {e}")
+    else:
+        print(f"File suara '{sound_file}' tidak ditemukan.")
+
 # Fungsi untuk mencetak teks dengan efek typewriter
 def typewriter(text, typing_sound_file='typing.mp3', delay=0.05):
     """Menampilkan teks dengan efek typewriter dan suara ketikan."""
