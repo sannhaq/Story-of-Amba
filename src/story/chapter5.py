@@ -27,9 +27,9 @@ def chapter_5_event_1(nama_karakter):
         f"Arfan mulai merasa takut dan mencoba memperingatkan {nama_karakter} untuk berhati-hati.",
     ]
 
-def chapter_5_event_2():
+def chapter_5_event_2(nama_karakter):
     return [
-        "Saat mereka memutuskan untuk meninggalkan ruangan, mereka menyadari", 
+        f"Saat {nama_karakter} memutuskan untuk meninggalkan ruangan, {nama_karakter} menyadari", 
         "bahwa pintu yang mereka lewati sebelumnya sudah tertutup",
         "dan tidak ada jalan keluar lain yang terlihat.",
         "Artefak mulai bersinar semakin terang, memberikan mereka petunjuk arah keluar.",
