@@ -71,7 +71,7 @@ def play_sound(sound_file):
         print(f"File suara '{sound_file}' tidak ditemukan.")
 
 # Fungsi untuk mencetak teks dengan efek typewriter
-def typewriter(text, typing_sound_file='typing.mp3', delay=0.05):
+def typewriter(text, typing_sound_file='typing.mp3', delay=0.1):
     """Menampilkan teks dengan efek typewriter dan suara ketikan."""
     # Jalankan suara ketikan di thread terpisah
     sound_thread = threading.Thread(target=play_sound, args=(typing_sound_file,))
@@ -127,3 +127,20 @@ def process_player_choice(event_func, game_state, message, options, fail_func, d
         event_func(game_state['nama_karakter'])
     else:
         game_over_prompt(game_state, load_checkpoint, display_state, fail_func)
+
+def ask_to_continue_game():
+    """Menanyakan apakah pemain ingin melanjutkan permainan"""
+    questions = [
+        {
+            'type': 'confirm',
+            'name': 'continue_game',
+            'message': 'Ada checkpoint yang ditemukan. Apakah Anda ingin melanjutkan permainan dari checkpoint?',
+            'default': True
+        }
+    ]
+    answers = prompt(questions)
+
+    if answers['continue_game']:
+        return True
+    else:
+        return False 
