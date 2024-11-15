@@ -83,8 +83,8 @@ def chapter_1_event_6(nama_karakter):
         "berlatih membaca kompas dan bintang di langit.", 
         "Berjam-jam ia habiskan di dermaga dengan pandangan ke arah cakrawala,",
         "mencoba mengingat letak bintang-bintang yang akan menuntunnya di tengah laut.", 
-        f"Meskipun ia belum ahli, {nama_karakter}",
-        "merasa percaya diri untuk mengarungi lautan tanpa tersesat."
+        "Meskipun ia belum ahli,",
+        f"{nama_karakter} merasa percaya diri untuk mengarungi lautan tanpa tersesat."
     ]
 
 def chapter_1_event_7(nama_karakter):

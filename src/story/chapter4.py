@@ -63,7 +63,7 @@ def chapter_4_event_5(nama_karakter):
 
 def chapter_4_event_6(nama_karakter):
     return[
-        f"Ketika mereka terus berjalan lebih dalam, tiba-tiba makhluk besar muncul dari kegelapan.",
+        f"Ketika {nama_karakter} dan Arfan terus berjalan lebih dalam, tiba-tiba makhluk besar muncul dari kegelapan.",
         "Bentuknya tak jelas,",
         "namun matanya menyala merah menyala, dan tubuhnya dipenuhi oleh tentakel yang bergerak-gerak.",
         "Makhluk itu melayang dengan kecepatan yang tidak bisa dikejar,",

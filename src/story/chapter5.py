@@ -27,9 +27,9 @@ def chapter_5_event_1(nama_karakter):
         f"Arfan mulai merasa takut dan mencoba memperingatkan {nama_karakter} untuk berhati-hati.",
     ]
 
-def chapter_5_event_2():
+def chapter_5_event_2(nama_karakter):
     return [
-        "Saat mereka memutuskan untuk meninggalkan ruangan, mereka menyadari", 
+        f"Saat {nama_karakter} dan Arfan memutuskan untuk meninggalkan ruangan, mereka menyadari", 
         "bahwa pintu yang mereka lewati sebelumnya sudah tertutup",
         "dan tidak ada jalan keluar lain yang terlihat.",
         "Artefak mulai bersinar semakin terang, memberikan mereka petunjuk arah keluar.",
@@ -47,9 +47,9 @@ def chapter_5_event_3(nama_karakter):
         "Pengawal itu memperingatkan mereka untuk mengembalikan artefak atau menghadapi konsekuensinya."
     ]
 
-def chapter_5_event_4():
+def chapter_5_event_4(nama_karakter):
     return [
-        "Mereka menemukan sebuah gua gelap di bagian dalam kuil. Dari dalam gua terdengar", 
+        f"{nama_karakter} dan Arfan menemukan sebuah gua gelap di bagian dalam kuil. Dari dalam gua terdengar", 
         "suara gemuruh air, yang mungkin mengarah ke jalan keluar.",
         "Namun, mereka harus melewati jalan yang licin dan sempit, dan ada kemungkinan besar", 
         "mereka bisa terjatuh ke jurang bawah gua jika tidak hati-hati."
