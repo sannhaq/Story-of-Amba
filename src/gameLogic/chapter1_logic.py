@@ -4,20 +4,105 @@ from InquirerPy import prompt
 from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice
 from src.story.chapter1 import chapter_1, chapter_1_event_1, chapter_1_event_2, chapter_1_event_3, chapter_1_event_4, chapter_1_event_5, chapter_1_event_6, chapter_1_event_7, chapter_1_event_8, chapter_1_event_9, chapter_1_event_10
 from src.story.opening import get_intro
+from src.gameLogic.chapter2_logic import chapter2
 
 # Inisiasi state permainan.
 game_state = {
     "nama_karakter": "",
     "location": "Pantai",
-    "inventory": [],
     "progres": "Baru terbangun di pulau"
 }
+
+def lanjutkan_game_dari_checkpoint(answers, state):
+    from src.gameLogic.chapter2_logic import chapter2, chapter2_event1
+    from src.gameLogic.chapter3_logic import chapter3, chapter3_event1
+    from src.gameLogic.chapter4_logic import chapter4, chapter4_event1
+    from src.gameLogic.chapter5_logic import chapter5, chapter5_event1, chapter5_event2, chapter5_event3, chapter5_event4, chapter5_event5, chapter5_event6, chapter5_event7, chapter5_event8, chapter5_event9, chapter5_event10
+
+    global game_state
+    if answers['continue_game']:
+        game_state = state  # Memuat state dari checkpoint
+        print(f"Melanjutkan dari {game_state['progres']}")
+        display_state(game_state)
+
+        # Logika berdasarkan progres
+        if game_state['progres'] == "Baru terbangun di pulau":
+            new_game()
+        elif game_state['progres'] == "Memasuki gudang rumah":
+            chapter1()
+        elif game_state['progres'] == "Duduk di lantai gudang":
+            chapter1_event1(game_state['nama_karakter'])
+        elif game_state['progres'] == "Menyelesaikan event di gudang":
+            chapter1_event2(game_state['nama_karakter'])
+        elif game_state['progres'] == "Mengumpulkan perbekalan":
+            chapter1_event3(game_state['nama_karakter'])
+        elif game_state['progres'] == "Mencari teman berlayar":
+            chapter1_event4(game_state['nama_karakter'])
+        elif game_state['progres'] == "Mendapatkan Kapal":
+            chapter1_event5(game_state['nama_karakter'])
+        elif game_state['progres'] == "Persiapan Navigasi":
+            chapter1_event6(game_state['nama_karakter'])
+        elif game_state['progres'] == "Peringatan Warga Desa":
+            chapter1_event7(game_state['nama_karakter'])
+        elif game_state['progres'] == "Memilih Jalur Berlayar":
+            chapter1_event8(game_state['nama_karakter'])
+        elif game_state['progres'] == "Mengatasi Keraguan":
+            chapter1_event9(game_state['nama_karakter'])
+        elif game_state['progres'] == "Keberangkatan":
+            chapter1_event10(game_state['nama_karakter'])
+        
+        # Progres untuk Chapter 2
+        elif game_state['progres'] == "Perjalanan ke Pulau Amba":
+            chapter2(game_state['nama_karakter'])
+        elif game_state['progres'] == "Badai di Tengah Malam":
+            chapter2_event1(game_state['nama_karakter'])
+
+        # Progres untuk Chapter 3
+        elif game_state['progres'] == "Misteri Pulau Amba":
+            chapter3(game_state['nama_karakter'])
+        elif game_state['progres'] == "Jejak yang Tertinggal":
+            chapter3_event1(game_state['nama_karakter'])
+        
+        # Progres untuk Chapter 4
+        elif game_state['progres'] == "Dalam Bayang-Bayang Kuil":
+            chapter4(game_state['nama_karakter'])
+        elif game_state['progres'] == "Pintu yang Terkunci":
+            chapter4_event1(game_state['nama_karakter'])
+        
+        # Progres untuk Chapter 5
+        elif game_state['progres'] == "Rahasia Artefak Kuno":
+            chapter5(game_state['nama_karakter'])
+        elif game_state['progres'] == "Suara berbisik dari artefak":
+            chapter5_event1(game_state['nama_karakter'])
+        elif game_state['progres'] == "Jalan Keluar yang Hilang":
+            chapter5_event2(game_state['nama_karakter'])
+        elif game_state['progres'] == "Pengawal Bayangan":
+            chapter5_event3(game_state['nama_karakter'])
+        elif game_state['progres'] == "Jalan Buntu dengan Gua Gelap":
+            chapter5_event4(game_state['nama_karakter'])
+        elif game_state['progres'] == "Rantai Misterius yang Menghalangi Jalan":
+            chapter5_event5(game_state['nama_karakter'])
+        elif game_state['progres'] == "Cermin Pemanggil Kenangan":
+            chapter5_event6(game_state['nama_karakter'])
+        elif game_state['progres'] == "Serangan Jebakan Tombak":
+            chapter5_event7(game_state['nama_karakter'])
+        elif game_state['progres'] == "Persimpangan Berbahaya":
+            chapter5_event8(game_state['nama_karakter'])
+        elif game_state['progres'] == "Gerbang Terakhir":
+            chapter5_event9(game_state['nama_karakter'])
+        elif game_state['progres'] == "Pengorbanan Terakhir":
+            chapter5_event10(game_state['nama_karakter'])
+
+    else:
+        delete_checkpoint()  # Hapus checkpoint jika pemain tidak mau melanjutkan
+        print("Memulai permainan baru...\n")
+        new_game()
+
 
 def display_state(state):
     """Menampilkan lokasi, inventaris, dan progres permainan."""
     print(f"Nama Karakter: {state['nama_karakter']}")
     print(f"Lokasi: {state['location']}")
-    print(f"Inventaris: {', '.join(state['inventory']) if state['inventory'] else 'Tidak ada item'}")
     print(f"Progres: {state['progres']}\n")
 
 def intro():
@@ -37,46 +122,17 @@ def intro():
             }
         ]
         answers = prompt(questions)
-
-        if answers['continue_game']:
-            game_state = state  # Memuat state dari checkpoint
-            print(f"Melanjutkan dari {game_state['progres']}")
-            display_state(game_state)
-
-            if game_state['progres'] == "Baru terbangun di pulau":
-                new_game()
-            elif game_state['progres'] == "Memasuki gudang rumah":
-                chapter1()
-            elif game_state['progres'] == "Duduk di lantai gudang":
-                chapter1_event1(game_state['nama_karakter'])
-            elif game_state['progres'] == "Menyelesaikan event di gudang":
-                chapter1_event2(game_state['nama_karakter'])
-            elif game_state['progres'] == "Mengumpulkan perbekalan":
-                chapter1_event3(game_state['nama_karakter'])
-            elif game_state['progres'] == "Mencari teman berlayar":
-                chapter1_event4(game_state['nama_karakter'])
-            elif game_state['progres'] == "Mendapatkan Kapal":
-                chapter1_event5(game_state['nama_karakter'])
-            elif game_state['progres'] == "Persiapan Navigasi":
-                chapter1_event6(game_state['nama_karakter'])
-            elif game_state['progres'] == "Peringatan Warga Desa":
-                chapter1_event7(game_state['nama_karakter'])
-            elif game_state['progres'] == "Memilih Jalur Berlayar":
-                chapter1_event8(game_state['nama_karakter'])
-            elif game_state['progres'] == "Mengatasi Keraguan":
-                chapter1_event9(game_state['nama_karakter'])
-            elif game_state['progres'] == "Keberangkatan":
-                chapter1_event10(game_state['nama_karakter'])
-        else:
-            delete_checkpoint()  # Hapus checkpoint jika pemain tidak mau melanjutkan
-            print("Memulai permainan baru...\n")
-            new_game()  # Panggil new_game() jika pemain tidak ingin melanjutkan dari checkpoint
+        lanjutkan_game_dari_checkpoint(answers, state)
     else:
         # Jika tidak ada checkpoint, mulai permainan baru
         new_game()
 
 def new_game():
     global game_state
+
+    # Menghapus nama karakter jika sebelumnya sudah ada
+    game_state["nama_karakter"] = ""  # Reset nama karakter
+
     """Memulai permainan baru dengan state awal."""
     if not game_state.get("nama_karakter"):
         questions = [
@@ -93,7 +149,6 @@ def new_game():
     # Mengatur state permainan ke awal
     game_state.update({
         "location": "Pantai",
-        "inventory": [],
         "progres": "Baru terbangun di pulau"
     })
 
@@ -374,4 +429,7 @@ def chapter1_event10(nama_karakter):
         end_chapter(game_state['nama_karakter'])
 
 def end_chapter(nama_karakter):
+    """Akhiri Chapter 1 dan lanjutkan ke Chapter 2"""
     typewriter("Chapter 1 selesai. Permainan berlanjut ke chapter berikutnya...")
+    clear_console()
+    chapter2(game_state['nama_karakter'])
