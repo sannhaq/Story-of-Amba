@@ -1,3 +1,4 @@
 checkpoints/
-__pycache__/
-*.pyc
+src/__pycache__/
+src/gameLogic/__pycache__/
+src/story/__pycache__/
