@@ -71,7 +71,7 @@ def play_sound(sound_file):
         print(f"File suara '{sound_file}' tidak ditemukan.")
 
 # Fungsi untuk mencetak teks dengan efek typewriter
-def typewriter(text, typing_sound_file='typing.mp3', delay=0.1):
+def typewriter(text, typing_sound_file='typing.mp3', delay=0.05):
     """Menampilkan teks dengan efek typewriter dan suara ketikan."""
     # Jalankan suara ketikan di thread terpisah
     sound_thread = threading.Thread(target=play_sound, args=(typing_sound_file,))
