@@ -16,7 +16,7 @@ game_state = {
 def lanjutkan_game_dari_checkpoint(answers, state):
     from src.gameLogic.chapter2_logic import chapter2, chapter2_event1
     from src.gameLogic.chapter3_logic import chapter3, chapter3_event1
-    from src.gameLogic.chapter4_logic import chapter4, chapter4_event1
+    from src.gameLogic.chapter4_logic import chapter4, chapter4_event1,chapter4_event2,chapter4_event3,chapter4_event4,chapter4_event5,chapter4_event6,chapter4_event7,chapter4_event8,chapter4_event9,chapter4_event10
     from src.gameLogic.chapter5_logic import chapter5, chapter5_event1, chapter5_event2, chapter5_event3, chapter5_event4, chapter5_event5, chapter5_event6, chapter5_event7, chapter5_event8, chapter5_event9, chapter5_event10
 
     global game_state
@@ -66,8 +66,27 @@ def lanjutkan_game_dari_checkpoint(answers, state):
         # Progres untuk Chapter 4
         elif game_state['progres'] == "Dalam Bayang-Bayang Kuil":
             chapter4(game_state['nama_karakter'])
-        elif game_state['progres'] == "Pintu yang Terkunci":
+        elif game_state['progres'] == "Pintu yang terkunci":
             chapter4_event1(game_state['nama_karakter'])
+        elif game_state['progres'] == "Gema di lorong gelap":
+            chapter4_event2(game_state['nama_karakter'])
+        elif game_state['progres'] == "Jalan Berliku dan Tanda Darah":
+            chapter4_event3(game_state['nama_karakter'])
+        elif game_state['progres'] == "Teka-teki Suara":
+            chapter4_event4(game_state['nama_karakter'])
+        elif game_state['progres'] == "Lorong dengan Pijakan yang Runtuh":
+            chapter4_event5(game_state['nama_karakter'])
+        elif game_state['progres'] == "Makhluk Misterius":
+            chapter4_event6(game_state['nama_karakter'])
+        elif game_state['progres'] == "Pintu yang Terbuka dengan Kunci":
+            chapter4_event7(game_state['nama_karakter'])
+        elif game_state['progres'] == "Tempat Terlarang":
+            chapter4_event8(game_state['nama_karakter'])
+        elif game_state['progres'] == "Teka-teki Batu Raksasa":
+            chapter4_event9(game_state['nama_karakter'])
+        elif game_state['progres'] == "Ruang Harta Karun":
+            chapter4_event10(game_state['nama_karakter'])
+
         
         # Progres untuk Chapter 5
         elif game_state['progres'] == "Rahasia Artefak Kuno":
