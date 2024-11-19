@@ -13,8 +13,9 @@ game_state = {
     "progres": "Baru terbangun di pulau"
 }
 
+
 def lanjutkan_game_dari_checkpoint(answers, state):
-    from src.gameLogic.chapter2_logic import chapter2, chapter2_event1
+    from src.gameLogic.chapter2_logic import chapter2, chapter2_event1, chapter2_event2, chapter2_event3, chapter2_event4, chapter2_event5, chapter2_event6, chapter2_event7, chapter2_event8, chapter2_event9, chapter2_event10
     from src.gameLogic.chapter3_logic import chapter3, chapter3_event1
     from src.gameLogic.chapter4_logic import chapter4, chapter4_event1
     from src.gameLogic.chapter5_logic import chapter5, chapter5_event1, chapter5_event2, chapter5_event3, chapter5_event4, chapter5_event5, chapter5_event6, chapter5_event7, chapter5_event8, chapter5_event9, chapter5_event10
@@ -50,25 +51,43 @@ def lanjutkan_game_dari_checkpoint(answers, state):
             chapter1_event9(game_state['nama_karakter'])
         elif game_state['progres'] == "Keberangkatan":
             chapter1_event10(game_state['nama_karakter'])
-        
+
         # Progres untuk Chapter 2
         elif game_state['progres'] == "Perjalanan ke Pulau Amba":
             chapter2(game_state['nama_karakter'])
         elif game_state['progres'] == "Badai di Tengah Malam":
             chapter2_event1(game_state['nama_karakter'])
+        elif game_state['progres'] == "Mengatasi kehausan":
+            chapter2_event2(game_state['nama_karakter'])
+        elif game_state['progres'] == "Hantu Kapal Bajak Laut":
+            chapter2_event3(game_state['nama_karakter'])
+        elif game_state['progres'] == "Perbaikan Layar yang Rusak":
+            chapter2_event4(game_state['nama_karakter'])
+        elif game_state['progres'] == "Masalah Kompas":
+            chapter2_event5(game_state['nama_karakter'])
+        elif game_state['progres'] == "Kehabisan Makanan":
+            chapter2_event6(game_state['nama_karakter'])
+        elif game_state['progres'] == "Arfan Membicarakan Kutukan":
+            chapter2_event7(game_state['nama_karakter'])
+        elif game_state['progres'] == "Serangan Burung Laut":
+            chapter2_event8(game_state['nama_karakter'])
+        elif game_state['progres'] == "Cahaya di Tengah Laut":
+            chapter2_event9(game_state['nama_karakter'])
+        elif game_state['progres'] == "Mendekati Pulau Amba":
+            chapter2_event10(game_state['nama_karakter'])
 
         # Progres untuk Chapter 3
         elif game_state['progres'] == "Misteri Pulau Amba":
             chapter3(game_state['nama_karakter'])
         elif game_state['progres'] == "Jejak yang Tertinggal":
             chapter3_event1(game_state['nama_karakter'])
-        
+
         # Progres untuk Chapter 4
         elif game_state['progres'] == "Dalam Bayang-Bayang Kuil":
             chapter4(game_state['nama_karakter'])
         elif game_state['progres'] == "Pintu yang Terkunci":
             chapter4_event1(game_state['nama_karakter'])
-        
+
         # Progres untuk Chapter 5
         elif game_state['progres'] == "Rahasia Artefak Kuno":
             chapter5(game_state['nama_karakter'])
@@ -105,6 +124,7 @@ def display_state(state):
     print(f"Lokasi: {state['location']}")
     print(f"Progres: {state['progres']}\n")
 
+
 def intro():
     global game_state
     """Menampilkan narasi intro dan memeriksa checkpoint."""
@@ -127,6 +147,7 @@ def intro():
         # Jika tidak ada checkpoint, mulai permainan baru
         new_game()
 
+
 def new_game():
     global game_state
 
@@ -143,7 +164,8 @@ def new_game():
             }
         ]
         answers = prompt(questions)
-        game_state["nama_karakter"] = answers["nama_karakter"]  # Simpan nama karakter
+        # Simpan nama karakter
+        game_state["nama_karakter"] = answers["nama_karakter"]
         clear_console()
 
     # Mengatur state permainan ke awal
@@ -160,6 +182,7 @@ def new_game():
     clear_console()
     chapter1()
 
+
 def chapter1():
     global game_state
     """Mengelola alur chapter 1."""
@@ -173,6 +196,7 @@ def chapter1():
 
     chapter1_event1(game_state['nama_karakter'])
 
+
 def chapter1_event1(nama_karakter):
     """Event pertama di gudang."""
     global game_state
@@ -183,12 +207,12 @@ def chapter1_event1(nama_karakter):
     game_state["location"] = "Lantai gudang"
     game_state["progres"] = "Duduk di lantai gudang"
     save_checkpoint(game_state)
-    
+
     # Pilihan aksi pemain
     process_player_choice(
-        chapter1_event2, 
-        game_state, 
-        "Pilih aksi:", 
+        chapter1_event2,
+        game_state,
+        "Pilih aksi:",
         [
             {"name": "Baca surat dengan teliti", "value": "benar"},
             {"name": "Abaikan bagian penting dari surat", "value": "salah"}
@@ -196,6 +220,7 @@ def chapter1_event1(nama_karakter):
         lambda: chapter1_event1(game_state['nama_karakter']),
         display_state
     )
+
 
 def chapter1_event2(nama_karakter):
     global game_state
@@ -208,9 +233,9 @@ def chapter1_event2(nama_karakter):
 
     # Pilihan aksi pemain
     process_player_choice(
-        chapter1_event3, 
-        game_state, 
-        "Pilih aksi:", 
+        chapter1_event3,
+        game_state,
+        "Pilih aksi:",
         [
             {"name": "Memutuskan untuk mengunjungi museum", "value": "benar"},
             {"name": "Memutuskan berangkat tanpa informasi lebih lanjut", "value": "salah"}
@@ -218,6 +243,7 @@ def chapter1_event2(nama_karakter):
         lambda: chapter1_event2(game_state['nama_karakter']),
         display_state
     )
+
 
 def chapter1_event3(nama_karakter):
     global game_state
@@ -230,9 +256,9 @@ def chapter1_event3(nama_karakter):
 
     # Pilihan aksi pemain
     process_player_choice(
-        chapter1_event4, 
-        game_state, 
-        "Pilih aksi:", 
+        chapter1_event4,
+        game_state,
+        "Pilih aksi:",
         [
             {"name": "Siapkan makanan, air, dan persediaan kesehatan", "value": "benar"},
             {"name": "Membawa perbekalan seadanya", "value": "salah"}
@@ -240,6 +266,7 @@ def chapter1_event3(nama_karakter):
         lambda: chapter1_event3(game_state['nama_karakter']),
         display_state
     )
+
 
 def chapter1_event4(nama_karakter):
     global game_state
@@ -252,16 +279,18 @@ def chapter1_event4(nama_karakter):
 
     # Pilihan aksi pemain
     process_player_choice(
-        chapter1_event5, 
-        game_state, 
-        "Pilih aksi:", 
+        chapter1_event5,
+        game_state,
+        "Pilih aksi:",
         [
-            {"name": "Pergi sendiri, mengandalkan keberanian dan nalurinya.", "value": "salah"},
+            {"name": "Pergi sendiri, mengandalkan keberanian dan nalurinya.",
+                "value": "salah"},
             {"name": "Ajak Arfan yang berpengalaman", "value": "benar"}
         ],
         lambda: chapter1_event4(game_state['nama_karakter']),
         display_state
     )
+
 
 def chapter1_event5(nama_karakter):
     global game_state
@@ -293,6 +322,7 @@ def chapter1_event5(nama_karakter):
     else:
         chapter1_event6(game_state['nama_karakter'])
 
+
 def chapter1_event6(nama_karakter):
     global game_state
 
@@ -303,9 +333,9 @@ def chapter1_event6(nama_karakter):
 
     # Pilihan aksi pemain
     process_player_choice(
-        chapter1_event7, 
-        game_state, 
-        "Pilih aksi:", 
+        chapter1_event7,
+        game_state,
+        "Pilih aksi:",
         [
             {"name": "Pelajari dasar navigasi", "value": "benar"},
             {"name": "Abaikan pelatihan navigasi", "value": "salah"}
@@ -313,6 +343,7 @@ def chapter1_event6(nama_karakter):
         lambda: chapter1_event6(game_state['nama_karakter']),
         display_state
     )
+
 
 def chapter1_event7(nama_karakter):
     global game_state
@@ -325,7 +356,8 @@ def chapter1_event7(nama_karakter):
     # Pilihan aksi pemain
     typewriter("Apa yang ingin kamu lakukan?")
     options = [
-        {"name": "Percayai peringatan warga dan bersiap secara spiritual.", "value": "percaya"},
+        {"name": "Percayai peringatan warga dan bersiap secara spiritual.",
+            "value": "percaya"},
         {"name": "Abaikan dan lanjutkan rencana dengan lebih percaya diri.", "value": "acuh"}
     ]
     questions = [
@@ -343,6 +375,7 @@ def chapter1_event7(nama_karakter):
         chapter1_event8(game_state['nama_karakter'])
     else:
         chapter1_event8(game_state['nama_karakter'])
+
 
 def chapter1_event8(nama_karakter):
     global game_state
@@ -375,6 +408,7 @@ def chapter1_event8(nama_karakter):
     else:
         chapter1_event9(game_state['nama_karakter'])
 
+
 def chapter1_event9(nama_karakter):
     global game_state
 
@@ -386,9 +420,9 @@ def chapter1_event9(nama_karakter):
 
     # Pilihan aksi pemain
     process_player_choice(
-        chapter1_event10, 
-        game_state, 
-        "Pilih aksi:", 
+        chapter1_event10,
+        game_state,
+        "Pilih aksi:",
         [
             {"name": "Yakinkan diri, merasa bersemangat untuk berangkat keesokan harinya.", "value": "benar"},
             {"name": "Batal pergi, membiarkan ketakutannya menang", "value": "salah"}
@@ -396,6 +430,7 @@ def chapter1_event9(nama_karakter):
         lambda: chapter1_event9(game_state['nama_karakter']),
         display_state
     )
+
 
 def chapter1_event10(nama_karakter):
     global game_state
@@ -427,6 +462,7 @@ def chapter1_event10(nama_karakter):
         end_chapter(game_state['nama_karakter'])
     else:
         end_chapter(game_state['nama_karakter'])
+
 
 def end_chapter(nama_karakter):
     """Akhiri Chapter 1 dan lanjutkan ke Chapter 2"""
