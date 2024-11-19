@@ -53,8 +53,8 @@ def chapter_4_event_4(nama_karakter):
 
 def chapter_4_event_5(nama_karakter):
     return[
-        f"Di sebuah lorong lebih jauh,",
-        " mereka menemukan jalan yang tampaknya semakin sempit."
+        "Di sebuah lorong lebih jauh,",
+        "mereka menemukan jalan yang tampaknya semakin sempit.",
         "Pijakan di bawah mereka retak dan tampak sangat rapuh.",
         f"Dengan hati-hati, {nama_karakter} melangkah satu per satu,",
         "tetapi tiba-tiba salah satu pijakan mengeluarkan suara keras,",
@@ -72,7 +72,7 @@ def chapter_4_event_6(nama_karakter):
 
 def chapter_4_event_7(nama_karakter):
     return[
-        f"Tiba-tiba, suara nyaring terdengar dari dalam dinding,",
+        "Tiba-tiba, suara nyaring terdengar dari dalam dinding,",
         "diikuti dengan sebuah teka-teki yang dipancarkan melalui speaker tersembunyi di sekitar ruangan.",
         "Suara itu terdengar seperti berasal dari seorang penjaga kuno yang menguji siapa pun yang berani masuk ke dalam kuil ini.",
         f"{nama_karakter} harus memecahkan teka-teki ini untuk melanjutkan perjalanan mereka."
@@ -81,7 +81,7 @@ def chapter_4_event_7(nama_karakter):
 def chapter_4_event_8(nama_karakter):
     return[
         f"Setelah menghindari makhluk tersebut,",
-        "mereka akhirnya menemukan sebuah pintu besar dengan simbol kunci yang menyala di atasnya."
+        "mereka akhirnya menemukan sebuah pintu besar dengan simbol kunci yang menyala di atasnya.",
         "Pintu ini tampak seperti gerbang menuju bagian paling dalam kuil.",
         "Namun, untuk membukanya, mereka membutuhkan kunci yang telah lama hilang.",
         f"{nama_karakter} merasa ada sesuatu yang tersembunyi di ruangan ini,",
@@ -90,8 +90,8 @@ def chapter_4_event_8(nama_karakter):
 
 def chapter_4_event_9(nama_karakter):
     return[
-        f"Di tengah ruangan,",
-        " ada batu raksasa dengan ukiran misterius yang terlihat seperti sebuah teka-teki.",
+        "Di tengah ruangan,",
+        "ada batu raksasa dengan ukiran misterius yang terlihat seperti sebuah teka-teki.",
         "Batu tersebut tampak seperti kunci untuk membuka jalan ke ruang harta karun yang lebih dalam.",
         f"{nama_karakter} tahu bahwa hanya dengan memecahkan teka-teki ini mereka bisa melanjutkan,",
         "namun waktu terasa semakin mendesak."
