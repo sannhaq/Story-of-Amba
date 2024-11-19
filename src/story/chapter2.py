@@ -26,7 +26,7 @@ def chapter_2_event_1(nama_karakter):
         "Ia tahu, jika ia tidak segera bertindak,kapal mereka bisa terbalik kapan saja."
     ]
 
-def chapter_1_event_2(nama_karakter):
+def chapter_2_event_2(nama_karakter):
     return [
         "Setelah melewati badai,",
         f"{nama_karakter} dan Arfan kelelahan.",
