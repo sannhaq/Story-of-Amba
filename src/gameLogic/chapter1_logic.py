@@ -71,7 +71,7 @@ def lanjutkan_game_dari_checkpoint(answers, state):
         elif game_state['progres'] == "Peti Kuno Berpaku Karat":
             chapter3_event5(game_state['nama_karakter'])
         elif game_state['progres'] == "Sumur Tua yang Terbengkalai":
-            chapter3_event6(game_state['nama_karater'])
+            chapter3_event6(game_state['nama_karakter'])
         elif game_state['progres'] == "Jejak Cahaya di Kegelapan":
             chapter3_event7(game_state['nama_karakter'])
         elif game_state['progres'] ==  "Pertemuan dengan Patung Batu Berwajah Marah":

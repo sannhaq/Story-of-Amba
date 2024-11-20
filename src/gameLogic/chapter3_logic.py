@@ -181,9 +181,9 @@ def chapter3_event6(nama_karakter):
     clear_console()
 
     if answers['action'] == 'tali':
-        chapter3_event6(game_state['nama_karakter'])
+        chapter3_event7(game_state['nama_karakter'])
     else:
-        chapter3_event6(game_state['nama_karakter'])
+        chapter3_event7(game_state['nama_karakter'])
 
 def chapter3_event7(nama_karakter):
     global game_state
@@ -211,9 +211,9 @@ def chapter3_event7(nama_karakter):
     clear_console()
 
     if answers['action'] == 'mengikuti':
-        chapter3_event7(game_state['nama_karakter'])
+        chapter3_event8(game_state['nama_karakter'])
     else:
-        chapter3_event7(game_state['nama_karakter'])
+        chapter3_event8(game_state['nama_karakter'])
 
 def chapter3_event8(nama_karakter):
     global game_state
@@ -262,14 +262,14 @@ def chapter3_event9(nama_karakter):
     clear_console()
 
     if answers['action'] == 'memeriksa':
-        chapter3_event9(game_state['nama_karakter'])
+        chapter3_event10(game_state['nama_karakter'])
     else:
-        chapter3_event9(game_state['nama_karakter'])
+        chapter3_event10(game_state['nama_karakter'])
 
 def chapter3_event10(nama_karakter):
     global game_state
 
-    for line in chapter_3_event_10:
+    for line in chapter_3_event_10(nama_karakter):
         typewriter(line)
     game_state["location"] = "Di dalam kuil"
     game_state["progres"] = "Kode Tersembunyi pada Dinding"
