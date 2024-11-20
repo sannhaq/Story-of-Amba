@@ -78,9 +78,9 @@ def chapter3_event2(nama_karakter):
     clear_console()
 
     if answers['action'] == 'teliti':
-        chapter3_event2(game_state['nama_karakter'])
+        chapter3_event3(game_state['nama_karakter'])
     else:
-        chapter3_event2(game_state['nama_karakter'])
+        chapter3_event3(game_state['nama_karakter'])
 
 def chapter3_event3(nama_karakter):
     global game_state
@@ -273,7 +273,7 @@ def chapter3_event10(nama_karakter):
         typewriter(line)
     game_state["location"] = "Di dalam kuil"
     game_state["progres"] = "Kode Tersembunyi pada Dinding"
-    save_checkpoint
+    save_checkpoint(game_state)
 
     # pilihan aksi pemain
     process_player_choice(
@@ -292,3 +292,4 @@ def end_chapter(nama_karakter):
     """Akhiri Chapter 3 dan lanjutkan ke Chapter 4"""
     typewriter("Chapter 3 selesai. Permainan berlanjut ke chapter berikutnya...")
     clear_console()
+    chapter4(game_state['nama_karakter'])
