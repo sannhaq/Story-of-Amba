@@ -130,9 +130,9 @@ def chapter3_event4(nama_karakter):
     clear_console()
 
     if answers['action'] == 'lorong':
-        chapter3_event4(game_state['nama_karakter'])
+        chapter3_event5(game_state['nama_karakter'])
     else:
-        chapter3_event4(game_state['nama_karakter'])
+        chapter3_event5(game_state['nama_karakter'])
 
 def chapter3_event5(nama_karakter):
     global game_state
