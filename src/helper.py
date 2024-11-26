@@ -1,14 +1,45 @@
 import json
 import os
+from prettytable import PrettyTable
 import pygame
 import sys
 import threading
 import time
 from InquirerPy import prompt
-import sys
 
-CHECKPOINT_DIR = 'checkpoints'
+CHECKPOINT_DIR = 'system'
 CHECKPOINT_FILE = os.path.join(CHECKPOINT_DIR, 'checkpoint.json')
+INVENTORY_FILE = os.path.join(CHECKPOINT_DIR, 'inventory.json')
+
+def ensure_inventory_file():
+    """Pastikan file inventory.json ada."""
+    if not os.path.exists(INVENTORY_FILE):
+        with open(INVENTORY_FILE, "w") as f:
+            json.dump([], f)
+
+def load_inventory():
+    """Memuat inventory dari file."""
+    ensure_inventory_file()
+    try:
+        with open(INVENTORY_FILE, "r") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        print("Gagal memuat inventory: format file tidak valid.")
+        return []
+    except Exception as e:
+        print(f"Terjadi kesalahan saat memuat inventory: {e}")
+        return []
+
+
+def save_inventory(inventory):
+    """Menyimpan inventory ke file."""
+    with open(INVENTORY_FILE, "w") as f:
+        json.dump(inventory, f)
+
+def delete_inventory():
+    """Menghapus file inventory.json."""
+    if os.path.exists(INVENTORY_FILE):
+        os.remove(INVENTORY_FILE)
 
 def ensure_checkpoint_dir():
     """Membuat folder checkpoints jika belum ada."""
@@ -40,6 +71,7 @@ def delete_checkpoint():
     if os.path.exists(CHECKPOINT_FILE):
         os.remove(CHECKPOINT_FILE)
         print("Checkpoint dihapus.")
+        delete_inventory()
     else:
         print("Tidak ada checkpoint yang ditemukan untuk dihapus.")
 
@@ -103,30 +135,43 @@ def game_over_prompt(game_state, load_checkpoint, display_state, restart_chapter
     restart_answer = prompt(questions)
     
     if restart_answer['restart']:
-        # Memuat ulang state dari checkpoint dan memulai ulang chapter
-        game_state.update(load_checkpoint())  # Update game_state dengan checkpoint
-        display_state(game_state)  # Menampilkan state saat ini
-        restart_chapter(*restart_args)  # Mengulang chapter dengan argumen tambahan
+        game_state.update(load_checkpoint())
+        display_state(game_state)
+        restart_chapter(*restart_args)
     else:
         print("Permainan berakhir. Terima kasih telah bermain!")
         sys.exit()
 
 def process_player_choice(event_func, game_state, message, options, fail_func, display_state):
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': message,
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
+    while True:
+        # Tambahkan opsi 'Lihat Inventory'
+        extended_options = options + [{"name": "Lihat Inventory", "value": "inventory"}]
 
-    if answers['action'] == 'benar':
-        event_func(game_state['nama_karakter'])
-    else:
-        game_over_prompt(game_state, load_checkpoint, display_state, fail_func)
+        # Prompt untuk pemain
+        questions = [
+            {
+                'type': 'list',
+                'name': 'action',
+                'message': message,
+                'choices': extended_options
+            }
+        ]
+        answers = prompt(questions)
+        clear_console()
+
+        action = answers['action']
+
+        if action == "inventory":
+            inventory_menu()
+            continue
+
+        for option in options:
+            if option['value'] == action:
+                if action == "benar":
+                    event_func(game_state['nama_karakter'])
+                else:
+                    game_over_prompt(game_state, load_checkpoint, display_state, fail_func)
+                return
 
 def ask_to_continue_game():
     """Menanyakan apakah pemain ingin melanjutkan permainan"""
@@ -143,4 +188,135 @@ def ask_to_continue_game():
     if answers['continue_game']:
         return True
     else:
-        return False 
+        return False
+
+def add_item_to_inventory(item):
+    """Menambahkan item ke inventory dengan konfirmasi pemain."""
+    inventory = load_inventory()
+    if item not in inventory:
+        questions = [
+            {
+                'type': 'confirm',
+                'name': 'take_item',
+                'message': f"Apakah Anda ingin mengambil {item}?",
+                'default': False,
+            }
+        ]
+        answers = prompt(questions)
+        if answers['take_item']:
+            inventory.append(item)
+            save_inventory(inventory)
+            print(f"{item} telah ditambahkan ke inventory Anda.")
+        else:
+            print(f"{item} tidak diambil.")
+    else:
+        print(f"{item} sudah ada di inventory Anda.")
+
+def display_inventory():
+    """Menampilkan inventory dalam bentuk tabel."""
+    inventory = load_inventory()
+    table = PrettyTable()
+    table.field_names = ["No.", "Item"]
+    
+    for idx, item in enumerate(inventory, 1):
+        table.add_row([idx, item])
+    
+    print(table)
+
+def sort_inventory():
+    """Mengurutkan inventory berdasarkan abjad."""
+    inventory = load_inventory()
+    inventory.sort()
+    save_inventory(inventory)
+    print("Inventory berhasil diurutkan.")
+
+def search_inventory(item_name):
+    """Mencari item dalam inventory dan menampilkannya dalam bentuk tabel dengan nomor urut."""
+    inventory = load_inventory()
+
+    item_name = item_name.lower()
+    found_items = [item for item in inventory if item_name in item.lower()]
+    
+    clear_console()
+    
+    if found_items:
+        table = PrettyTable()
+        table.field_names = ["No", "Item"]
+        
+        for idx, item in enumerate(found_items, start=1):
+            table.add_row([idx, item])
+        
+        print(f"Hasil pencarian untuk '{item_name}':\n")
+        print(table)
+    else:
+        print(f"Item '{item_name}' tidak ditemukan di inventory.")
+
+def inventory_menu():
+    """Menampilkan menu inventory dengan pilihan sorting atau searching."""
+    while True:
+        print("\n---- INVENTORY ----")
+        
+        inventory = load_inventory()
+        if not inventory:
+            print("Inventory kosong.")
+        else:
+            table = PrettyTable()
+            table.field_names = ["No", "Item"]
+
+            for idx, item in enumerate(inventory, 1):
+                table.add_row([idx, item])
+            
+            print(table)
+
+        questions = [
+            {
+                'type': 'list',
+                'name': 'action',
+                'message': 'Pilih aksi:',
+                'choices': ['Sorting Inventory', 'Mencari Item', 'Kembali ke Permainan']
+            }
+        ]
+        
+        answers = prompt(questions)
+        action = answers['action'].lower()
+
+        if action == 'sorting inventory':
+            sort_inventory()
+        elif action == 'mencari item':
+            item_name = input("Masukkan nama item yang ingin dicari: ")
+            search_inventory(item_name)
+        elif action == 'kembali ke permainan':
+            clear_console()
+            return
+        else:
+            print("Pilihan tidak valid. Silakan pilih lagi.")
+
+def show_player_choices(nama_karakter, message, options, event_mapping, add_inventory_option=True):
+    """Menampilkan pilihan aksi setelah narasi selesai dengan opsi dinamis."""
+    if add_inventory_option:
+        options.append({"name": "Lihat Inventory", "value": "inventory"})
+    
+    questions = [
+        {
+            'type': 'list',
+            'name': 'action',
+            'message': message,
+            'choices': options
+        }
+    ]
+    
+    answers = prompt(questions)
+    clear_console()
+
+    if answers['action'] == 'inventory':
+        inventory_menu()
+        clear_console()
+        show_player_choices(nama_karakter, message, options, event_mapping, add_inventory_option=False)
+    else:
+        action = answers['action']
+        
+        if action in event_mapping:
+            event_mapping[action](nama_karakter)
+        else:
+            print("Pilihan tidak valid.")
+
