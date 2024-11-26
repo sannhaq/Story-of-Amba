@@ -1,7 +1,7 @@
 import sys
 import threading
 from InquirerPy import prompt
-from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice
+from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice, show_player_choices
 from src.story.chapter5 import chapter_5, chapter_5_event_1, chapter_5_event_2, chapter_5_event_3, chapter_5_event_4, chapter_5_event_5, chapter_5_event_6, chapter_5_event_7, chapter_5_event_8, chapter_5_event_9, chapter_5_event_10
 from src.story.ending import ending_1, ending_2, ending_3
 
@@ -64,21 +64,13 @@ def chapter5_event2(nama_karakter):
         {"name": "Menggunakan cahaya dari artefak untuk mencari jalan keluar tersembunyi", "value": "cahaya"},
         {"name": "Menggunakan insting mereka dan mencoba mencari jalan keluar tanpa bantuan artefak.", "value": "insting"}
     ]
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Pilih aksi:',
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
-
-    if answers['action'] == 'cahaya':
-        chapter5_event3(game_state['nama_karakter'])
-    else:
-        chapter5_event3(game_state['nama_karakter'])
+    
+    event_mapping = {
+        "cahaya": chapter5_event3,
+        "insting": chapter5_event3,
+    }
+    
+    show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
 
 def chapter5_event3(nama_karakter):
     global game_state
@@ -136,21 +128,13 @@ def chapter5_event5(nama_karakter):
         {"name": "Menggunakan kekuatan artefak untuk membuka rantai dan melanjutkan perjalanan.", "value": "kekuatan"},
         {"name": "Mencoba mencari cara lain untuk memotong rantai tanpa menggunakan artefak.", "value": "rantai"}
     ]
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Pilih aksi:',
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
-
-    if answers['action'] == 'kekuatan':
-        chapter5_event6(game_state['nama_karakter'])
-    else:
-        chapter5_event6(game_state['nama_karakter'])
+    
+    event_mapping = {
+        "kekuatan": chapter5_event6,
+        "rantai": chapter5_event6,
+    }
+    
+    show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
 
 def chapter5_event6(nama_karakter):
     global game_state
@@ -208,21 +192,13 @@ def chapter5_event8(nama_karakter):
         {"name": "Memilih jalan yang sesuai dengan petunjuk yang diberikan oleh Alaric.", "value": "sesuai"},
         {"name": "Mengambil jalan secara acak karena terburu-buru dan mengabaikan petunjuk.", "value": "acak"}
     ]
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Pilih aksi:',
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
-
-    if answers['action'] == 'sesuai':
-        chapter5_event9(game_state['nama_karakter'])
-    else:
-        chapter5_event9(game_state['nama_karakter'])
+    
+    event_mapping = {
+        "sesuai": chapter5_event9,
+        "acak": chapter5_event9,
+    }
+    
+    show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
 
 def chapter5_event9(nama_karakter):
     global game_state
@@ -260,23 +236,14 @@ def chapter5_event10(nama_karakter):
         {"name": "Meninggalkan artefak dan menghormati pesan Alaric.", "value": "hormati"},
         {"name": "Menghancurkan artefak di dalam kuil.", "value": "hancur"}
     ]
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Pilih aksi:',
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
-
-    if answers['action'] == 'bawa':
-        ending1(game_state['nama_karakter'])
-    elif answers['action'] == 'hormati':
-        ending2(game_state['nama_karakter'])
-    else:
-        ending3(game_state['nama_karakter'])
+    
+    event_mapping = {
+        "bawa": ending1,
+        "hormati": ending2,
+        "hancur": ending3,
+    }
+    
+    show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
     
 
 def ending1(nama_karakter):
