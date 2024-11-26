@@ -191,18 +191,22 @@ def ask_to_continue_game():
         return False
 
 def add_item_to_inventory(item):
-    """Menambahkan item ke inventory dengan konfirmasi pemain."""
+    """Menambahkan item ke inventory dengan konfirmasi pemain menggunakan list."""
     inventory = load_inventory()
     if item not in inventory:
         questions = [
             {
-                'type': 'confirm',
+                'type': 'list',
                 'name': 'take_item',
                 'message': f"Apakah Anda ingin mengambil {item}?",
-                'default': False,
+                'choices': [
+                    {"name": "Ya", "value": True},
+                    {"name": "Tidak", "value": False}
+                ]
             }
         ]
         answers = prompt(questions)
+        
         if answers['take_item']:
             inventory.append(item)
             save_inventory(inventory)
@@ -262,6 +266,9 @@ def inventory_menu():
         else:
             table = PrettyTable()
             table.field_names = ["No", "Item"]
+
+            table.align["No"] = "c"
+            table.align["Item"] = "l"
 
             for idx, item in enumerate(inventory, 1):
                 table.add_row([idx, item])
