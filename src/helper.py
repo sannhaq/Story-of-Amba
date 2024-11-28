@@ -11,6 +11,12 @@ CHECKPOINT_DIR = 'system'
 CHECKPOINT_FILE = os.path.join(CHECKPOINT_DIR, 'checkpoint.json')
 INVENTORY_FILE = os.path.join(CHECKPOINT_DIR, 'inventory.json')
 
+pygame.mixer.init()
+pygame.mixer.set_num_channels(2)
+
+background_channel = pygame.mixer.Channel(0)
+effect_channel = pygame.mixer.Channel(1)
+
 def ensure_inventory_file():
     """Pastikan file inventory.json ada."""
     if not os.path.exists(INVENTORY_FILE):
@@ -78,6 +84,29 @@ def delete_checkpoint():
 def clear_console():
     """Menghapus layar console."""
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def play_sound_effect(sound_file, is_background=False, channel_id=None):
+    """Memutar file suara yang diberikan."""
+    sound_file_path = os.path.join('assets/sounds', sound_file).replace('\\', '/')
+    
+    if os.path.exists(sound_file_path):
+        try:
+            sound = pygame.mixer.Sound(sound_file_path)
+            
+            # Gunakan channel tertentu atau cari channel kosong
+            if channel_id is not None:
+                channel = pygame.mixer.Channel(channel_id)
+            else:
+                channel = pygame.mixer.find_channel()
+
+            if channel:
+                channel.play(sound, loops=0 if is_background else 0)
+            else:
+                print(f"Tidak ada channel yang tersedia untuk memutar '{sound_file}'")
+        except pygame.error as e:
+            print(f"Gagal memutar suara '{sound_file}': {e}")
+    else:
+        print(f"File suara '{sound_file}' tidak ditemukan.")
 
 def play_sound(sound_file):
     """Memutar file suara yang diberikan."""
@@ -190,31 +219,40 @@ def ask_to_continue_game():
     else:
         return False
 
-def add_item_to_inventory(item):
-    """Menambahkan item ke inventory dengan konfirmasi pemain menggunakan list."""
+def add_item_to_inventory(items):
+    """Menambahkan beberapa item ke inventory dengan konfirmasi pemain menggunakan list."""
     inventory = load_inventory()
-    if item not in inventory:
-        questions = [
-            {
-                'type': 'list',
-                'name': 'take_item',
-                'message': f"Apakah Anda ingin mengambil {item}?",
-                'choices': [
-                    {"name": "Ya", "value": True},
-                    {"name": "Tidak", "value": False}
-                ]
-            }
-        ]
-        answers = prompt(questions)
-        
-        if answers['take_item']:
-            inventory.append(item)
-            save_inventory(inventory)
-            print(f"{item} telah ditambahkan ke inventory Anda.")
+    
+    # Pastikan input selalu berupa list
+    if isinstance(items, str):  # Jika hanya satu item sebagai string
+        items = [items]
+    
+    for item in items:
+        if item not in inventory:
+            questions = [
+                {
+                    'type': 'list',
+                    'name': 'take_item',
+                    'message': f"Apakah Anda ingin mengambil {item}?",
+                    'choices': [
+                        {"name": "Ya", "value": True},
+                        {"name": "Tidak", "value": False}
+                    ]
+                }
+            ]
+            answers = prompt(questions)
+            
+            if answers['take_item']:
+                inventory.append(item)
+                save_inventory(inventory)
+                print(f"{item} telah ditambahkan ke inventory Anda.")
+            else:
+                print(f"{item} tidak diambil.")
         else:
-            print(f"{item} tidak diambil.")
-    else:
-        print(f"{item} sudah ada di inventory Anda.")
+            print(f"{item} sudah ada di inventory Anda.")
+    
+    # Simpan inventory setelah semua proses selesai
+    save_inventory(inventory)
 
 def display_inventory():
     """Menampilkan inventory dalam bentuk tabel."""
