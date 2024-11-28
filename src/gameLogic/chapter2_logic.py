@@ -1,5 +1,6 @@
 import sys
 import threading
+import time
 from InquirerPy import prompt
 from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice
 from src.story.chapter2 import chapter_2, chapter_2_event_1, chapter_2_event_2, chapter_2_event_3, chapter_2_event_4, chapter_2_event_5, chapter_2_event_6, chapter_2_event_7, chapter_2_event_8, chapter_2_event_9, chapter_2_event_10
@@ -298,5 +299,6 @@ def chapter2_event10(nama_karakter):
 def end_chapter(nama_karakter):
     """Akhiri Chapter 2 dan lanjutkan ke Chapter 3"""
     typewriter("Chapter 2 selesai. Permainan berlanjut ke chapter berikutnya...")
+    time.sleep(2)
     clear_console()
     chapter3(game_state['nama_karakter'])

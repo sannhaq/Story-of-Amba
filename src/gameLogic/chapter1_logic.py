@@ -1,8 +1,10 @@
 import sys
+import time
+import pygame
 import threading
 from InquirerPy import prompt
-from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice, add_item_to_inventory, show_player_choices
-from src.story.chapter1 import chapter_1, chapter_1_event_1, chapter_1_event_2, chapter_1_event_3, chapter_1_event_4, chapter_1_event_5, chapter_1_event_6, chapter_1_event_7, chapter_1_event_8, chapter_1_event_9, chapter_1_event_10
+from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, typewriter, game_over_prompt, process_player_choice, add_item_to_inventory, show_player_choices, play_sound, play_sound_effect
+from src.story.chapter1 import chapter_1, chapter_1_event_1, chapter_1_event_2, chapter_1_event_3, chapter_1_event_4, chapter_1_event_4_2, chapter_1_event_5, chapter_1_event_6, chapter_1_event_7, chapter_1_event_8, chapter_1_event_9, chapter_1_event_10
 from src.story.opening import get_intro
 from src.gameLogic.chapter2_logic import chapter2
 
@@ -13,6 +15,10 @@ game_state = {
     "progres": "Baru terbangun di pulau"
 }
 
+pygame.mixer.set_num_channels(2)
+
+background_channel = pygame.mixer.Channel(0)
+effect_channel = pygame.mixer.Channel(1)
 
 def lanjutkan_game_dari_checkpoint(answers, state):
     from src.gameLogic.chapter2_logic import chapter2, chapter2_event1, chapter2_event2, chapter2_event3, chapter2_event4, chapter2_event5, chapter2_event6, chapter2_event7, chapter2_event8, chapter2_event9, chapter2_event10
@@ -178,6 +184,7 @@ def intro():
             }
         ]
         answers = prompt(questions)
+        clear_console()
         lanjutkan_game_dari_checkpoint(answers, state)
     else:
         # Jika tidak ada checkpoint, mulai permainan baru
@@ -213,8 +220,13 @@ def new_game():
     # Menampilkan narasi intro
     for line in get_intro(game_state['nama_karakter']):
         typewriter(line)
-    play_sound('intro.mp3')  # Memutar efek suara intro
-    save_checkpoint(game_state)  # Simpan checkpoint di awal permainan
+    play_sound_effect("intro.mp3", is_background=True)
+    
+    # Tunggu sampai efek suara intro selesai
+    while background_channel.get_busy():
+        pygame.time.Clock().tick(10)
+    
+    save_checkpoint(game_state)
     clear_console()
     chapter1()
 
@@ -223,9 +235,16 @@ def chapter1():
     global game_state
     """Mengelola alur chapter 1."""
 
+    wood_thread = threading.Thread(target=play_sound_effect, args=("Wood Creaking.mp3", True, 0))
+    wind_thread = threading.Thread(target=play_sound_effect, args=("wind.mp3", True, 1))
+    wood_thread.start()
+    wind_thread.start()
+
     for line in chapter_1(game_state['nama_karakter']):
         typewriter(line)
-    add_item_to_inventory('Pedang')
+    background_channel.stop()
+    print("\n")
+    add_item_to_inventory('Surat')
     game_state["location"] = "Gudang rumah"
     game_state["progres"] = "Memasuki gudang rumah"
     save_checkpoint(game_state)
@@ -238,9 +257,15 @@ def chapter1_event1(nama_karakter):
     """Event pertama di gudang."""
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("Rustling Paper.mp3", True))
+    music_thread.start()
+
     # Menampilkan narasi event pertama
     for line in chapter_1_event_1(nama_karakter):
         typewriter(line)
+    background_channel.stop()
+    print("\n")
+    add_item_to_inventory('Peta Kuno')
     game_state["location"] = "Lantai gudang"
     game_state["progres"] = "Duduk di lantai gudang"
     save_checkpoint(game_state)
@@ -261,8 +286,14 @@ def chapter1_event1(nama_karakter):
 def chapter1_event2(nama_karakter):
     global game_state
 
+    foot_thread = threading.Thread(target=play_sound_effect, args=("Footsteps in Gravel.mp3", True, 0))
+    water_thread = threading.Thread(target=play_sound_effect, args=("Water Splash.mp3", True, 1))
+    foot_thread.start()
+    water_thread.start()
+
     for line in chapter_1_event_2(nama_karakter):
         typewriter(line)
+    background_channel.stop()
     game_state["location"] = "Dalam gudang"
     game_state["progres"] = "Menyelesaikan event di gudang"
     save_checkpoint(game_state)
@@ -286,6 +317,8 @@ def chapter1_event3(nama_karakter):
 
     for line in chapter_1_event_3(nama_karakter):
         typewriter(line)
+    print("\n")
+    add_item_to_inventory('Pisau Saku')
     game_state["location"] = "Rumah"
     game_state["progres"] = "Mengumpulkan perbekalan"
     save_checkpoint(game_state)
@@ -307,8 +340,25 @@ def chapter1_event3(nama_karakter):
 def chapter1_event4(nama_karakter):
     global game_state
 
+    play_sound_effect("Fishing Rod Tell.mp3")
+    fishing_thread = threading.Thread(target=play_sound_effect, args=("Fishing Rod Tell.mp3", True))
+    fishing_thread.start()
+
     for line in chapter_1_event_4(nama_karakter):
         typewriter(line)
+    
+    background_channel.stop()
+
+    man_thread = threading.Thread(target=play_sound_effect, args=("old man.mp3", True))
+    man_thread.start()
+
+    for line in chapter_1_event_4_2(nama_karakter):
+        typewriter(line)
+    
+    background_channel.stop()
+
+    print("\n")
+    add_item_to_inventory('Kerang Ajaib')
     game_state["location"] = "Dermaga"
     game_state["progres"] = "Mencari teman berlayar"
     save_checkpoint(game_state)
@@ -330,8 +380,12 @@ def chapter1_event4(nama_karakter):
 def chapter1_event5(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("Sails flapping in the wind.mp3", True))
+    music_thread.start()
+
     for line in chapter_1_event_5(nama_karakter):
         typewriter(line)
+    background_channel.stop()
     game_state["progres"] = "Mendapatkan Kapal"
     save_checkpoint(game_state)
 
@@ -351,8 +405,16 @@ def chapter1_event5(nama_karakter):
 def chapter1_event6(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("Twinkling Stars.mp3", True))
+    music_thread.start()
+
     for line in chapter_1_event_6(nama_karakter):
         typewriter(line)
+    
+    background_channel.stop()
+
+    print("\n")
+    add_item_to_inventory(['Kompas', 'Buku Navigasi'])
     game_state["progres"] = "Persiapan Navigasi"
     save_checkpoint(game_state)
 
@@ -374,6 +436,8 @@ def chapter1_event7(nama_karakter):
 
     for line in chapter_1_event_7(nama_karakter):
         typewriter(line)
+    print("\n")
+    add_item_to_inventory('Jimat Pelindung')
     game_state["progres"] = "Peringatan Warga Desa"
     save_checkpoint(game_state)
 
@@ -395,8 +459,14 @@ def chapter1_event7(nama_karakter):
 def chapter1_event8(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("wind2.mp3", True))
+    music_thread.start()
+
     for line in chapter_1_event_8(nama_karakter):
         typewriter(line)
+    
+    background_channel.stop()
+
     game_state["location"] = "Rumah"
     game_state["progres"] = "Memilih Jalur Berlayar"
     save_checkpoint(game_state)
@@ -418,8 +488,14 @@ def chapter1_event8(nama_karakter):
 def chapter1_event9(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("Water Splash.mp3", True))
+    music_thread.start()
+
     for line in chapter_1_event_9(nama_karakter):
         typewriter(line)
+    
+    background_channel.stop()
+
     game_state["location"] = "Pantai"
     game_state["progres"] = "Mengatasi Keraguan"
     save_checkpoint(game_state)
@@ -441,8 +517,14 @@ def chapter1_event9(nama_karakter):
 def chapter1_event10(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("pirates.mp3", True))
+    music_thread.start()
+
     for line in chapter_1_event_10(nama_karakter):
         typewriter(line)
+        
+    print("\n")
+    add_item_to_inventory('Kacamata')
     game_state["location"] = "Dermaga"
     game_state["progres"] = "Keberangkatan"
     save_checkpoint(game_state)
@@ -461,9 +543,10 @@ def chapter1_event10(nama_karakter):
     
     show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
 
-
 def end_chapter(nama_karakter):
     """Akhiri Chapter 1 dan lanjutkan ke Chapter 2"""
     typewriter("Chapter 1 selesai. Permainan berlanjut ke chapter berikutnya...")
+    time.sleep(2)
+    background_channel.stop()
     clear_console()
     chapter2(game_state['nama_karakter'])

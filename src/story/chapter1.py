@@ -36,7 +36,7 @@ def chapter_1_event_2(nama_karakter):
     return [
         f"Setelah memahami isi surat, {nama_karakter} memutuskan", 
         "untuk mengikuti petunjuk yang diberikan oleh Alaric.",
-        "Ia menghabiskan hari-harinya mempelajari letak geografis", 
+        "Ia menghabiskan hari-harinya di dermaga, mempelajari letak geografis", 
         "dan cerita-cerita yang mengelilingi Pulau Amba.",
         f"Di bawah naungan malam, {nama_karakter} duduk di dermaga,", 
         "menatap ke arah laut yang luas dan misterius,",
@@ -60,8 +60,12 @@ def chapter_1_event_4(nama_karakter):
     return [
         f"{nama_karakter} mulai berpikir untuk mencari teman", 
         "yang bisa menemani dan membantunya dalam perjalanan ini.",
-        "Di pelabuhan, ia bertemu dengan seorang nelayan tua bernama Arfan,",
-        "ang pernah menceritakan kisah-kisah tentang Kapten Alaric.",
+        "Di pelabuhan, ia bertemu dengan seorang nelayan tua bernama"
+    ]
+
+def chapter_1_event_4_2(nama_karakter):
+    return [
+        "Arfan, yang pernah menceritakan kisah-kisah tentang Kapten Alaric.",
         "Arfan menawarkan diri untuk menemaninya, dan pengalaman serta",
         f"pengetahuannya tentang laut bisa menjadi aset berharga dalam perjalanan {nama_karakter}."
     ]
