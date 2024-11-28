@@ -1,7 +1,7 @@
 import sys
 import threading
 from InquirerPy import prompt
-from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice
+from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice, add_item_to_inventory, show_player_choices
 from src.story.chapter3 import chapter_3, chapter_3_event_1, chapter_3_event_2, chapter_3_event_3, chapter_3_event_4, chapter_3_event_5, chapter_3_event_6, chapter_3_event_7, chapter_3_event_8, chapter_3_event_9, chapter_3_event_10
 from src.gameLogic.chapter4_logic import chapter4
 
@@ -64,29 +64,23 @@ def chapter3_event2(nama_karakter):
     typewriter("Apa yang ingin kamu lakukan?")
     options = [
         {"name": "Teliti simbol itu lebih dekat dan buat sketsa sebagai petunjuk.", "value": "teliti"},
-        {"name": "Abaikan simbol dan teruskan perjalanan.", "value": "Abaikan"}
+        {"name": "Abaikan simbol dan teruskan perjalanan.", "value": "abaikan"}
     ]
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Pilih aksi:',
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
+   
+    event_mapping = {
+        "teliti": chapter3_event3,
+        "abaikan": chapter3_event3,
+    }
+    
+    show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
 
-    if answers['action'] == 'teliti':
-        chapter3_event3(game_state['nama_karakter'])
-    else:
-        chapter3_event3(game_state['nama_karakter'])
 
 def chapter3_event3(nama_karakter):
     global game_state
 
     for line in chapter_3_event_3(nama_karakter):
         typewriter(line)
+    add_item_to_inventory('Pisau')
     game_state["progres"] = "Rintangan Jaring Laba-Laba"
     save_checkpoint(game_state)
 
@@ -118,21 +112,14 @@ def chapter3_event4(nama_karakter):
             {"name": "Berjalan melalui lorong dengan tenang, menjaga kewaspadaan.", "value": "lorong"},
             {"name": "Mencari jalan memutar, meskipun lorong ini terlihat lebih langsung.", "value": "memutar"}
         ]
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Pilih aksi:',
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
+    
+    event_mapping = {
+        "lorong": chapter3_event5,
+        "memutar": chapter3_event5,
+    }
+    
+    show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
 
-    if answers['action'] == 'lorong':
-        chapter3_event5(game_state['nama_karakter'])
-    else:
-        chapter3_event5(game_state['nama_karakter'])
 
 def chapter3_event5(nama_karakter):
     global game_state
@@ -160,6 +147,7 @@ def chapter3_event6(nama_karakter):
 
     for line in chapter_3_event_6(nama_karakter):
         typewriter(line)
+    add_item_to_inventory(['Tali', 'Batu'])
     game_state["progres"] = "Sumur Tua yang Terbengkalai"
     save_checkpoint(game_state)
 
@@ -169,21 +157,14 @@ def chapter3_event6(nama_karakter):
             {"name": "Turun menggunakan tali untuk memeriksa bagian dalam sumur", "value": "tali"},
             {"name": "Mengambil batu dan melemparkannya ke dalam sumur untuk memeriksa kedalamannya.", "value": "batu"}
         ]
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Pilih aksi:',
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
+   
+    event_mapping = {
+        "tali": chapter3_event7,
+        "batu": chapter3_event7,
+    }
+    
+    show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
 
-    if answers['action'] == 'tali':
-        chapter3_event7(game_state['nama_karakter'])
-    else:
-        chapter3_event7(game_state['nama_karakter'])
 
 def chapter3_event7(nama_karakter):
     global game_state
@@ -199,21 +180,14 @@ def chapter3_event7(nama_karakter):
             {"name": "Mengikuti cahaya itu untuk melihat ke mana ia menuju.", "value": "mengikuti"},
             {"name": "Mengabaikan cahaya dan tetap pada jalur yang mereka pilih.", "value": "mengabaikan"}
         ]
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Pilih aksi:',
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
+    
+    event_mapping = {
+        "mengikutii": chapter3_event8,
+        "mengabaikaan": chapter3_event8,
+    }
+    
+    show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
 
-    if answers['action'] == 'mengikuti':
-        chapter3_event8(game_state['nama_karakter'])
-    else:
-        chapter3_event8(game_state['nama_karakter'])
 
 def chapter3_event8(nama_karakter):
     global game_state
@@ -250,21 +224,14 @@ def chapter3_event9(nama_karakter):
     {"name": "Memeriksa jalur dengan hati-hati dan mencoba menghindari jebakan.", "value": "memeriksa"},
     {"name": "Masuk tanpa melihat tanda-tanda di lantai dan mengambil risiko tersandung jebakan.", "value": "tanpa melhat"}
     ]
-    questions = [
-        {
-            'type': 'list',
-            'name': 'action',
-            'message': 'Pilih aksi:',
-            'choices': options
-        }
-    ]
-    answers = prompt(questions)
-    clear_console()
+    
+    event_mapping = {
+        "memeriksa": chapter3_event10,
+        "tanpa melihat": chapter3_event10,
+    }
+    
+    show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
 
-    if answers['action'] == 'memeriksa':
-        chapter3_event10(game_state['nama_karakter'])
-    else:
-        chapter3_event10(game_state['nama_karakter'])
 
 def chapter3_event10(nama_karakter):
     global game_state
