@@ -81,6 +81,7 @@ def chapter3_event3(nama_karakter):
 
     for line in chapter_3_event_3(nama_karakter):
         typewriter(line)
+    print("\n")
     add_item_to_inventory('Pisau')
     game_state["progres"] = "Rintangan Jaring Laba-Laba"
     save_checkpoint(game_state)
@@ -91,7 +92,7 @@ def chapter3_event3(nama_karakter):
         game_state,
         "Pilih Aksi:",
         [
-            {"name": "{Nama Karakter} menggunakan pisau untuk memotong jaring dan membebaskan mereka.", "value": "benar"},
+            {"name": "{nama_karakter} menggunakan pisau untuk memotong jaring dan membebaskan mereka.", "value": "benar"},
             {"name": "Berusaha melepaskan dengan tangan kosong, tetapi jaring semakin merekat dan laba-laba itu menyerang.", "value": "salah"}
         ],
         lambda: chapter3_event3(game_state['nama_karakter']),
@@ -148,6 +149,7 @@ def chapter3_event6(nama_karakter):
 
     for line in chapter_3_event_6(nama_karakter):
         typewriter(line)
+    print("\n")
     add_item_to_inventory(['Tali', 'Batu'])
     game_state["progres"] = "Sumur Tua yang Terbengkalai"
     save_checkpoint(game_state)
