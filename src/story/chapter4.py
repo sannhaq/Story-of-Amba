@@ -101,7 +101,7 @@ def chapter_4_event_10(nama_karakter):
     return[
         f"Setelah teka-teki batu berhasil dipecahkan,",
         "sebuah pintu besar terbuka,",
-        " mengungkapkan sebuah ruangan yang dipenuhi dengan harta karun yang tak terhitung jumlahnya.,"
+        "mengungkapkan sebuah ruangan yang dipenuhi dengan harta karun yang tak terhitung jumlahnya.",
         "Emas, permata, dan benda berharga lainnya berserakan di lantai.",
         "Namun, di tengah harta tersebut, ada sebuah benda yang bersinar terang,",
         "seperti sebuah artefak yang sangat kuat.",
