@@ -517,7 +517,9 @@ def chapter1_event9(nama_karakter):
 def chapter1_event10(nama_karakter):
     global game_state
 
-    music_thread = threading.Thread(target=play_sound_effect, args=("pirates.mp3", True))
+    music_thread = threading.Thread(target=play_sound_effect, args=("pirates.mp3", True, 0))
+    boat_thread = threading.Thread(target=play_sound_effect, args=("Boat Horn.mp3", True, 1))
+    boat_thread.start()
     music_thread.start()
 
     for line in chapter_1_event_10(nama_karakter):
