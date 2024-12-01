@@ -1,6 +1,7 @@
 import sys
 import threading
 import time
+import pygame
 from InquirerPy import prompt
 from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, typewriter, game_over_prompt, process_player_choice, add_item_to_inventory, show_player_choices, play_sound, play_sound_effect
 from src.story.chapter2 import chapter_2, chapter_2_event_1, chapter_2_event_2, chapter_2_event_3, chapter_2_event_4, chapter_2_event_5, chapter_2_event_6, chapter_2_event_7, chapter_2_event_8, chapter_2_event_9, chapter_2_event_10
@@ -9,6 +10,10 @@ from src.gameLogic.chapter3_logic import chapter3
 # Inisialisasi game_state dari checkpoint jika ada
 game_state = load_checkpoint()  # Memuat state dari file checkpoint.json
 
+pygame.mixer.set_num_channels(2)
+
+background_channel = pygame.mixer.Channel(0)
+effect_channel = pygame.mixer.Channel(1)
 
 def display_state(state):
     """Menampilkan lokasi, inventaris, dan progres permainan."""
@@ -19,9 +24,13 @@ def display_state(state):
 
 def chapter2(nama_karakter):
     """Mengelola alur chapter 2."""
+    
+    ocean_thread = threading.Thread(target=play_sound_effect,args=("ocean-waves.mp3",True,0))
+    ocean_thread.start()
+    
     for line in chapter_2(nama_karakter):
         typewriter(line)
-
+    background_channel.stop()
     # Mengupdate status game
     game_state["location"] = "Kapal"  # Update lokasi
     game_state["progres"] = "Perjalanan ke Pulau Amba"  # Update progres
@@ -35,6 +44,9 @@ def chapter2(nama_karakter):
 
 def chapter2_event1(nama_karakter):
     global game_state
+
+    storm_thread = threading.Thread(target=play_sound_effect,args=("storm-rain.mp3",True,0))
+    storm_thread.start()
 
     for line in chapter_2_event_1(nama_karakter):
         typewriter(line)
@@ -69,8 +81,7 @@ def chapter2_event2(nama_karakter):
         game_state,
         "Pilih aksi:",
         [
-            {"name": f"Hemat air dan berbagi sisa air dengan bijak, {
-                nama_karakter} dan Arfan bertahan sampai menemukan cara untuk mendapatkan air segar di pulau nanti.", "value": "benar"},
+            {"name": f"Hemat air dan berbagi sisa air dengan bijak, {nama_karakter} dan Arfan bertahan sampai menemukan cara untuk mendapatkan air segar di pulau nanti.", "value": "benar"},
             {"name": "Minum banyak air tanpa menghemat — persediaan air cepat habis dan mereka kelelahan karena dehidrasi.", "value": "salah"}
         ],
         lambda: chapter2_event2(game_state['nama_karakter']),
@@ -90,9 +101,8 @@ def chapter2_event3(nama_karakter):
     typewriter("Apa yang ingin kamu lakukan?")
     options = [
         {"name": "Dekati kapal itu dan periksa lebih dekat (berpotensi memicu gangguan supernatural).",
-         "value": "dekati kapal"},
-        {"name": f"Abaikan kapal tersebut dan kembali tidur ({
-            nama_karakter} menghindari bahaya misterius).", "value": "abaikan"}
+        "value": "dekati kapal"},
+        {"name": f"Abaikan kapal tersebut dan kembali tidur ({nama_karakter} menghindari bahaya misterius).", "value": "abaikan"}
     ]
     event_mapping = {
         "dekati kapal": chapter2_event4,
