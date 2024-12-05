@@ -1,13 +1,20 @@
 import sys
 import threading
+import pygame
 import time
 from InquirerPy import prompt
-from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice
+from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice,add_item_to_inventory,play_sound, play_sound_effect
 from src.story.chapter4 import chapter_4, chapter_4_event_1,chapter_4_event_2,chapter_4_event_3,chapter_4_event_4,chapter_4_event_5,chapter_4_event_6,chapter_4_event_7,chapter_4_event_8,chapter_4_event_9,chapter_4_event_10
 from src.gameLogic.chapter5_logic import chapter5
 
 # Inisialisasi game_state dari checkpoint jika ada
 game_state = load_checkpoint()  # Memuat state dari file checkpoint.json
+
+
+pygame.mixer.set_num_channels(2)
+
+background_channel = pygame.mixer.Channel(0)
+effect_channel = pygame.mixer.Channel(1)
 
 def display_state(state):
     """Menampilkan lokasi, inventaris, dan progres permainan."""
@@ -32,10 +39,16 @@ def chapter4(nama_karakter):
 
 def chapter4_event1(nama_karakter):
     global game_state
+    gravel_thread = threading.Thread(target=play_sound_effect, args=("Footsteps in Gravel.mp3", True, 1))
+    run_thread = threading.Thread(target=play_sound_effect, args=("Run.mp3", True, 0))
+    run_thread.start()
+    gravel_thread.start()
     for line in chapter_4_event_1(nama_karakter):
         typewriter(line)
     game_state["location"] = "Pintu Besar"
     game_state["progres"] = "Pintu yang terkunci"
+    background_channel.stop()
+    add_item_to_inventory('Peta Kuno')
     save_checkpoint(game_state)
     
     # Pilihan aksi pemain
@@ -53,11 +66,13 @@ def chapter4_event1(nama_karakter):
         
 def chapter4_event2(nama_karakter):
     global game_state
-
+    rustlingpaper_thread = threading.Thread(target=play_sound_effect, args=("Rustling Paper.mp3", True, 0))
+    rustlingpaper_thread.start()
     for line in chapter_4_event_2(nama_karakter):
         typewriter(line)
     game_state["location"] = "Lorong sempit"
     game_state["progres"] = "Gema di lorong gelap"
+    background_channel.stop()
     save_checkpoint(game_state)
     
     # Pilihan aksi pemain
@@ -67,7 +82,7 @@ def chapter4_event2(nama_karakter):
         "Pilih aksi:", 
         [
             {"name": "Bergerak cepat ke arah cahaya untuk mencari tahu sumbernya.", "value": "benar"},
-            {"name": "Berdiri diam, menunggu suara itu mendekat, yang menyebabkan mereka terjebak dalam perangkap bergerak.", "value": "salah"}
+            {"name": "Berdiri diam, menunggu suara itu mendekat.", "value": "salah"}
         ],
         lambda: chapter4_event2(game_state['nama_karakter']),
         display_state
