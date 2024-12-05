@@ -66,6 +66,8 @@ def chapter4_event1(nama_karakter):
         
 def chapter4_event2(nama_karakter):
     global game_state
+    horrorsound_thread = threading.Thread(target=play_sound_effect, args=("horrorsound.mp3", True, 0))
+    horrorsound_thread.start()
     rustlingpaper_thread = threading.Thread(target=play_sound_effect, args=("Rustling Paper.mp3", True, 0))
     rustlingpaper_thread.start()
     for line in chapter_4_event_2(nama_karakter):
@@ -90,10 +92,12 @@ def chapter4_event2(nama_karakter):
 
 def chapter4_event3(nama_karakter):
     global game_state
-
+    gong_thread = threading.Thread(target=play_sound_effect, args=("gong.mp3", True, 0))
+    gong_thread.start()
     for line in chapter_4_event_3(nama_karakter):
         typewriter(line)
     game_state["progres"] = "Jalan Berliku dan Tanda Darah"
+    background_channel.stop()
     save_checkpoint(game_state)
 
     # Pilihan aksi pemain
@@ -120,11 +124,15 @@ def chapter4_event3(nama_karakter):
 
 def chapter4_event4(nama_karakter):
     global game_state
-
+    mysterysound_thread = threading.Thread(target=play_sound_effect, args=("mysterysong.mp3", True, 0))
+    weirdsound_thread = threading.Thread(target=play_sound_effect, args=("sfxaneh.mp3", True, 0))
+    weirdsound_thread.start()
+    mysterysound_thread.start()
     for line in chapter_4_event_4(nama_karakter):
         typewriter(line)
     game_state["location"] = "jalan Berliku"
     game_state["progres"] = "Teka-teki Suara"
+    background_channel.stop()
     save_checkpoint(game_state)
     
     # Pilihan aksi pemain
@@ -133,7 +141,7 @@ def chapter4_event4(nama_karakter):
         game_state, 
         "Pilih aksi:", 
         [
-            {"name": "Memecahkan teka-teki dengan benar berdasarkan petunjuk yang ditemukan di dinding", "value": "benar"},
+            {"name": "Memecahkan teka-teki berdasarkan petunjuk yang ditemukan", "value": "benar"},
             {"name": "Menebak dengan sembarangan", "value": "salah"}
         ],
         lambda: chapter4_event4(game_state['nama_karakter']),
@@ -141,7 +149,8 @@ def chapter4_event4(nama_karakter):
     )
 def chapter4_event5(nama_karakter):
     global game_state
-
+    woodcrack_thread = threading.Thread(target=play_sound_effect, args=("Wood Creaking.mp3", True, 0))
+    woodcrack_thread.start()
     for line in chapter_4_event_5(nama_karakter):
         typewriter(line)
     game_state["location"] = "lorong jauh"
