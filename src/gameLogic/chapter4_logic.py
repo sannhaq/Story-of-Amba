@@ -266,11 +266,13 @@ def chapter4_event8(nama_karakter):
 
 def chapter4_event9(nama_karakter):
     global game_state
-    
+    tomb = threading.Thread(target=play_sound_effect, args=("tomb.mp3", True, 0))
+    tomb.start()
     for line in chapter_4_event_9(nama_karakter):
         typewriter(line)
     
     game_state["progres"] = "Teka-teki Batu Raksasa"
+    background_channel.stop()
     save_checkpoint(game_state)
 
     process_player_choice(
@@ -287,10 +289,13 @@ def chapter4_event9(nama_karakter):
         
 def chapter4_event10(nama_karakter):
     global game_state
+    mysterysong = threading.Thread(target=play_sound_effect, args=("mysterysong.mp3", True, 0))
+    mysterysong.start()
     for line in chapter_4_event_10(nama_karakter):
         typewriter(line)
     game_state["location"] = "Ruang Harta Karun"
     game_state["progres"] = "Ruang Harta Karun"
+    background_channel.stop()
     save_checkpoint(game_state)
     
     # Pilihan aksi pemain
