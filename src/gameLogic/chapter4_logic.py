@@ -68,7 +68,7 @@ def chapter4_event2(nama_karakter):
     global game_state
     horrorsound_thread = threading.Thread(target=play_sound_effect, args=("horrorsound.mp3", True, 0))
     horrorsound_thread.start()
-    rustlingpaper_thread = threading.Thread(target=play_sound_effect, args=("Rustling Paper.mp3", True, 0))
+    rustlingpaper_thread = threading.Thread(target=play_sound_effect, args=("Rustling Paper.mp3", True, 1))
     rustlingpaper_thread.start()
     for line in chapter_4_event_2(nama_karakter):
         typewriter(line)
@@ -125,7 +125,7 @@ def chapter4_event3(nama_karakter):
 def chapter4_event4(nama_karakter):
     global game_state
     mysterysound_thread = threading.Thread(target=play_sound_effect, args=("mysterysong.mp3", True, 0))
-    weirdsound_thread = threading.Thread(target=play_sound_effect, args=("sfxaneh.mp3", True, 0))
+    weirdsound_thread = threading.Thread(target=play_sound_effect, args=("sfxaneh.mp3", True, 1))
     weirdsound_thread.start()
     mysterysound_thread.start()
     for line in chapter_4_event_4(nama_karakter):
@@ -150,7 +150,9 @@ def chapter4_event4(nama_karakter):
 def chapter4_event5(nama_karakter):
     global game_state
     woodcrack_thread = threading.Thread(target=play_sound_effect, args=("Wood Creaking.mp3", True, 0))
+    boom = threading.Thread(target=play_sound_effect, args=("boom.mp3", True, 1))
     woodcrack_thread.start()
+    boom.start()
     for line in chapter_4_event_5(nama_karakter):
         typewriter(line)
     game_state["location"] = "lorong jauh"
@@ -172,11 +174,16 @@ def chapter4_event5(nama_karakter):
 
 def chapter4_event6(nama_karakter):
     global game_state
-
+    growl_thread = threading.Thread(target=play_sound_effect, args=("growl.mp3", True, 0))
+    colossalboom = threading.Thread(target=play_sound_effect, args=("colossal.mp3", True, 1))
+    growl_thread.start()
+    colossalboom.start()
     for line in chapter_4_event_6(nama_karakter):
         typewriter(line)
     game_state["location"] = "lorong dalam"
     game_state["progres"] = "Makhluk Misterius"
+    background_channel.stop()
+    add_item_to_inventory('Lendir Monster')
     save_checkpoint(game_state)
     
     # Pilihan aksi pemain
@@ -194,10 +201,12 @@ def chapter4_event6(nama_karakter):
         
 def chapter4_event7(nama_karakter):
     global game_state
-
+    gong = threading.Thread(target=play_sound_effect, args=("gong.mp3", True, 0))
+    gong.start()
     for line in chapter_4_event_7(nama_karakter):
         typewriter(line)
     game_state["progres"] = "Pintu yang Terbuka dengan Kunci"
+    background_channel.stop()
     save_checkpoint(game_state)
 
     # Pilihan aksi pemain
@@ -224,17 +233,20 @@ def chapter4_event7(nama_karakter):
 
 def chapter4_event8(nama_karakter):
     global game_state
+    cradle = threading.Thread(target=play_sound_effect, args=("cradle.mp3", True, 0))
+    cradle.start()
     for line in chapter_4_event_8(nama_karakter):
         typewriter(line)
     game_state["progres"] = "Tempat Terlarang"
     game_state["location"] = "Ruangan Artefak"
+    background_channel.stop()
     save_checkpoint(game_state)
 
     # Pilihan aksi pemain
     typewriter("Apa yang ingin kamu lakukan?")
     options = [
         {"name": "Menjauh dari tempat terlarang dan mencari jalan lain.", "value": "menjauh"},
-        {"name": "Mencoba melanggar pagar energi dengan hati-hati, meskipun itu sangat berisiko", "value": "melanggar"}
+        {"name": "Mencoba melanggar pagar energi dengan hati-hati", "value": "melanggar"}
     ]
     questions = [
         {
