@@ -296,6 +296,7 @@ def chapter4_event10(nama_karakter):
     game_state["location"] = "Ruang Harta Karun"
     game_state["progres"] = "Ruang Harta Karun"
     background_channel.stop()
+    add_item_to_inventory('Harta karun Alaric')
     save_checkpoint(game_state)
     
     # Pilihan aksi pemain
