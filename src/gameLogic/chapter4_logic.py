@@ -10,9 +10,7 @@ from src.gameLogic.chapter5_logic import chapter5
 # Inisialisasi game_state dari checkpoint jika ada
 game_state = load_checkpoint()  # Memuat state dari file checkpoint.json
 
-
 pygame.mixer.set_num_channels(2)
-
 background_channel = pygame.mixer.Channel(0)
 effect_channel = pygame.mixer.Channel(1)
 
