@@ -92,7 +92,7 @@ def chapter3_event3(nama_karakter):
         game_state,
         "Pilih Aksi:",
         [
-            {"name": "{nama_karakter} menggunakan pisau untuk memotong jaring dan membebaskan mereka.", "value": "benar"},
+            {"name": f"{nama_karakter} menggunakan pisau untuk memotong jaring dan membebaskan mereka.", "value": "benar"},
             {"name": "Berusaha melepaskan dengan tangan kosong, tetapi jaring semakin merekat dan laba-laba itu menyerang.", "value": "salah"}
         ],
         lambda: chapter3_event3(game_state['nama_karakter']),
