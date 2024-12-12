@@ -1,13 +1,19 @@
 import sys
-import threading
 import time
+import pygame
+import threading
 from InquirerPy import prompt
-from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, play_sound, typewriter, game_over_prompt, process_player_choice, add_item_to_inventory, show_player_choices
+from src.helper import ensure_checkpoint_dir, save_checkpoint, load_checkpoint, delete_checkpoint, clear_console, typewriter, game_over_prompt, process_player_choice, add_item_to_inventory, show_player_choices, play_sound, play_sound_effect
 from src.story.chapter3 import chapter_3, chapter_3_event_1, chapter_3_event_2, chapter_3_event_3, chapter_3_event_4, chapter_3_event_5, chapter_3_event_6, chapter_3_event_7, chapter_3_event_8, chapter_3_event_9, chapter_3_event_10
 from src.gameLogic.chapter4_logic import chapter4
 
 # Inisialisasi game_state dari checkpoint jika ada
 game_state = load_checkpoint()  # Memuat state dari file checkpoint.json
+
+pygame.mixer.set_num_channels(2)
+
+background_channel = pygame.mixer.Channel(0)
+effect_channel = pygame.mixer.Channel(1)
 
 def display_state(state):
     """Menampilkan lokasi, inventaris, dan progres permainan."""
@@ -33,8 +39,14 @@ def chapter3(nama_karakter):
 def chapter3_event1(nama_karakter):
     global game_state
 
+    wind_thread = threading.Thread(target=play_sound_effect, args=("wind2.mp3", True))
+    wind_thread.start()
+
     for line in chapter_3_event_1(nama_karakter):
         typewriter(line)
+
+    background_channel.stop()
+
     game_state["location"] = " Di tepi hutan"
     game_state["progres"] = "Jejak yang Tertinggal"
     save_checkpoint(game_state)
@@ -55,8 +67,14 @@ def chapter3_event1(nama_karakter):
 def chapter3_event2(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("tomb.mp3", True))
+    music_thread.start()
+
     for line in chapter_3_event_2(nama_karakter):
         typewriter(line)
+
+    background_channel.stop()
+
     game_state["location"] = "Di tengah hutan"
     game_state["progres"] = "Pohon Tua Berukir Simbol Aneh"
     save_checkpoint(game_state)
@@ -79,8 +97,16 @@ def chapter3_event2(nama_karakter):
 def chapter3_event3(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("Footsteps in Gravel.mp3", True, 0))
+    mystery_thread = threading.Thread(target=play_sound_effect, args=("Mystery Adventure.mp3", True, 1))
+    music_thread.start()
+    mystery_thread.start()
+
     for line in chapter_3_event_3(nama_karakter):
         typewriter(line)
+
+    background_channel.stop()
+
     print("\n")
     add_item_to_inventory('Pisau')
     game_state["progres"] = "Rintangan Jaring Laba-Laba"
@@ -102,8 +128,16 @@ def chapter3_event3(nama_karakter):
 def chapter3_event4(nama_karakter):
     global game_state
 
+    wind_thread = threading.Thread(target=play_sound_effect, args=("wind2.mp3",True, 0))
+    music_thread = threading.Thread(target=play_sound_effect, args=("Footsteps in Gravel.mp3", True, 1))
+    wind_thread.start()
+    music_thread.start()
+
     for line in chapter_3_event_4(nama_karakter):
         typewriter(line)
+
+    background_channel.stop()
+
     game_state["location"] = "Lorong batu di lereng bukit"
     game_state["progres"] = "Lorong Batu di Perbukitan"
     save_checkpoint(game_state)
@@ -126,8 +160,14 @@ def chapter3_event4(nama_karakter):
 def chapter3_event5(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("Twinkling Stars.mp3", True))
+    music_thread.start()
+
     for line in chapter_3_event_5(nama_karakter):
         typewriter(line)
+
+    background_channel.stop()
+
     game_state["progres"] = "Peti Kuno Berpaku Karat"
     save_checkpoint(game_state)
 
@@ -147,8 +187,14 @@ def chapter3_event5(nama_karakter):
 def chapter3_event6(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("Twinkling Stars.mp3", True))
+    music_thread.start()
+
     for line in chapter_3_event_6(nama_karakter):
         typewriter(line)
+
+    background_channel.stop()
+
     print("\n")
     add_item_to_inventory(['Tali', 'Batu'])
     game_state["progres"] = "Sumur Tua yang Terbengkalai"
@@ -172,9 +218,15 @@ def chapter3_event6(nama_karakter):
 def chapter3_event7(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("tomb.mp3", True))
+    music_thread.start()
+
     for line in chapter_3_event_7(nama_karakter):
         typewriter(line)
-    game_state["progres"] = "Jejak Cahaya di Kegelaapan"
+
+    background_channel.stop()
+
+    game_state["progres"] = "Jejak Cahaya di Kegelapan"
     save_checkpoint(game_state)
 
         # pilihan aksi pemain
@@ -185,8 +237,8 @@ def chapter3_event7(nama_karakter):
         ]
     
     event_mapping = {
-        "mengikutii": chapter3_event8,
-        "mengabaikaan": chapter3_event8,
+        "mengikuti": chapter3_event8,
+        "mengabaikan": chapter3_event8,
     }
     
     show_player_choices(nama_karakter, "Pilih aksi:", options, event_mapping)
@@ -195,9 +247,15 @@ def chapter3_event7(nama_karakter):
 def chapter3_event8(nama_karakter):
     global game_state
 
+    mystery_thread = threading.Thread(target=play_sound_effect, args=("mysterysong.mp3", True))
+    mystery_thread.start()
+
     for line in chapter_3_event_8(nama_karakter):
         typewriter(line)
-    game_state["progres"] = "Pertemuan dengan Patung Batu Berwwajah Marah"
+
+    background_channel.stop()
+
+    game_state["progres"] = "Pertemuan dengan Patung Batu Berwajah Marah"
     save_checkpoint(game_state)
 
     # pilihan aksi pemain
@@ -216,8 +274,14 @@ def chapter3_event8(nama_karakter):
 def chapter3_event9(nama_karakter):
     global game_state
 
+    music_thread = threading.Thread(target=play_sound_effect, args=("tomb.mp3", True))
+    music_thread.start()
+
     for line in chapter_3_event_9(nama_karakter):
         typewriter(line)
+    
+    background_channel.stop()
+    
     game_state["progres"] = "Mencari Jalan di Reruntuhan Kuil Tua"
     save_checkpoint(game_state)
 
@@ -239,8 +303,14 @@ def chapter3_event9(nama_karakter):
 def chapter3_event10(nama_karakter):
     global game_state
 
+    mystery_thread = threading.Thread(target=play_sound_effect, args=("mysterysong.mp3", True))
+    mystery_thread.start()
+
     for line in chapter_3_event_10(nama_karakter):
         typewriter(line)
+
+    background_channel.stop()
+    
     game_state["location"] = "Di dalam kuil"
     game_state["progres"] = "Kode Tersembunyi pada Dinding"
     save_checkpoint(game_state)
