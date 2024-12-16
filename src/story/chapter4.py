@@ -28,7 +28,7 @@ def chapter_4_event_2(nama_karakter):
         f"Setelah pintu terbuka, mereka memasuki lorong sempit yang sangat gelap.",
         "Di ujung lorong, ada sebuah cahaya redup yang tampak bergerak.",
         f"Tiba-tiba, {nama_karakter} mendengar suara gemuruh yang datang dari dalam dinding,",
-        "seolah-olah ada makhluk besar yang bergerak di dalamnya."
+        "seolah-olah ada makhluk besar yang bergerak di dalamnya.",
         f"Arfan terlihat gelisah, tetapi {nama_karakter} memutuskan untuk terus melangkah.",
         "Suara gemuruh semakin keras, seolah sesuatu yang sangat besar sedang menuju mereka."
     ]
@@ -36,7 +36,7 @@ def chapter_4_event_2(nama_karakter):
 def chapter_4_event_3(nama_karakter):
     return[
         f"Setelah melewati lorong sempit,",
-        "mereka tiba di sebuah ruangan besar dengan jalan berliku yang dihiasi dengan tanda darah yang mengarah ke berbagai arah."
+        "mereka tiba di sebuah ruangan besar dengan jalan berliku yang dihiasi dengan tanda darah yang mengarah ke berbagai arah.",
         "Beberapa tempat di sepanjang jalan tampak dipenuhi dengan tulang-belulang manusia,",
         "menunjukkan bahwa banyak orang yang telah terjebak di dalam kuil ini.",
         "Suasana semakin mencekam,",
