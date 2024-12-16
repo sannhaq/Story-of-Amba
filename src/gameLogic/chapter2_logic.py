@@ -50,6 +50,11 @@ def chapter2_event1(nama_karakter):
 
     for line in chapter_2_event_1(nama_karakter):
         typewriter(line)
+    background_channel.stop()
+
+    print("\n")
+    add_item_to_inventory("Kompas")
+    
     game_state["progres"] = "Badai di Tengah Malam"
     save_checkpoint(game_state)
 
@@ -116,6 +121,10 @@ def chapter2_event4(nama_karakter):
 
     for line in chapter_2_event_4(nama_karakter):
         typewriter(line)
+        
+    print("\n")
+    add_item_to_inventory("Tali")
+        
     game_state["progres"] = "Perbaikan Layar yang Rusak"
     save_checkpoint(game_state)
 
@@ -138,6 +147,10 @@ def chapter2_event5(nama_karakter):
     # Menampilkan narasi event kedua
     for line in chapter_2_event_5(nama_karakter):
         typewriter(line)
+
+    print("\n")
+    add_item_to_inventory("Magnet")
+
     game_state["progres"] = "Masalah Kompas"
     save_checkpoint(game_state)
 
@@ -162,6 +175,10 @@ def chapter2_event6(nama_karakter):
     # Menampilkan narasi event kedua
     for line in chapter_2_event_6(nama_karakter):
         typewriter(line)
+        
+    print("\n")
+    add_item_to_inventory("Batu Laut Biru")
+        
     game_state["progres"] = "Kehabisan Makanan"
     save_checkpoint(game_state)
 
@@ -233,6 +250,10 @@ def chapter2_event9(nama_karakter):
     # Menampilkan narasi event kedua
     for line in chapter_2_event_9(nama_karakter):
         typewriter(line)
+        
+    print("\n")        
+    add_item_to_inventory("Lentera")
+        
     game_state["progres"] = "Cahaya di Tengah Laut"
     save_checkpoint(game_state)
 
@@ -258,6 +279,10 @@ def chapter2_event10(nama_karakter):
 
     for line in chapter_2_event_10(nama_karakter):
         typewriter(line)
+        
+    print("\n")
+    add_item_to_inventory("Peta Pulau Amba")
+    
     game_state["progres"] = "Mendekati Pulau Amba"
     save_checkpoint(game_state)
 
