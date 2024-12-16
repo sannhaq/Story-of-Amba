@@ -198,18 +198,22 @@ def new_game():
     game_state["nama_karakter"] = ""  # Reset nama karakter
 
     """Memulai permainan baru dengan state awal."""
-    if not game_state.get("nama_karakter"):
+    while not game_state.get("nama_karakter"):
         questions = [
             {
                 'type': 'input',
                 'name': 'nama_karakter',
-                'message': 'Masukkan nama karakter Anda:',
+                'message': 'Masukkan nama karakter Anda (tidak boleh kosong):',
             }
         ]
         answers = prompt(questions)
-        # Simpan nama karakter
-        game_state["nama_karakter"] = answers["nama_karakter"]
-        clear_console()
+        nama_karakter = answers.get("nama_karakter", "").strip()
+
+        if nama_karakter:
+            game_state["nama_karakter"] = nama_karakter
+            clear_console()
+        else:
+            print("Nama tidak boleh kosong! Silakan coba lagi.")
 
     # Mengatur state permainan ke awal
     game_state.update({
@@ -229,7 +233,6 @@ def new_game():
     save_checkpoint(game_state)
     clear_console()
     chapter1()
-
 
 def chapter1():
     global game_state
