@@ -59,15 +59,14 @@ def chapter_2_event_3(nama_karakter):
 def chapter_2_event_4(nama_karakter):
     return [
         "Keesokan paginya, setelah malam yang penuh dengan ketegangan,",
-        f"{nama_karakter} menyadari bahwa sebagian layar kapal mereka robek akibat badai sebelumnya.",
-        "Tanpa layar yang utuh, kapal mereka akan melambat dan kemungkinan tersesat.",
-        "Arfan tampak kelelahan,",
-        "namun segera mengambil alat perbaikan seadanya untuk mencoba memperbaiki layar tersebut.",
-        f"Melihat tekad Arfan, {nama_karakter} merasa harus mengambil alih agar sang nelayan bisa beristirahat.",
-        f"Namun, tanpa pengalaman memperbaiki layar, {nama_karakter} harus berhati-hati agar tidak merusaknya lebih jauh.",
-        f"Sayangnya, {nama_karakter} tidak memperhatikan petunjuk Arfan dan merobek layar lebih parah.",
-        "Perjalanan menjadi lebih lambat dan mereka kehilangan arah.",
-        "Game Over."
+        f"{nama_karakter} menyadari bahwa sebagian layar kapal mereka ",
+        "robek akibat badai sebelumnya. Tanpa layar yang utuh, kapal mereka",
+        "akan melambat dan kemungkinan tersesat. Arfan tampak kelelahan,",
+        "namun segera mengambil alat perbaikan seadanya untuk mencoba",
+        f"memperbaiki layar tersebut. Melihat tekad Arfan, {nama_karakter}",
+        "merasa harus mengambil alih agar sang nelayan bisa beristirahat.",
+        f"Namun, tanpa pengalaman memperbaiki layar, {nama_karakter} harus",
+        "berhati-hati agar tidak merusaknya lebih jauh."
     ]
 
 def chapter_2_event_5(nama_karakter):
