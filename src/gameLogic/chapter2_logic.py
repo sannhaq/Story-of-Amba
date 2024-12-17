@@ -46,15 +46,16 @@ def chapter2_event1(nama_karakter):
     global game_state
 
     storm_thread = threading.Thread(target=play_sound_effect,args=("storm-rain.mp3",True,0))
+    storm_thread2 = threading.Thread(target=play_sound_effect,args=("rain-thunder.mp3",True,0))
+    ocean_thread = threading.Thread(target=play_sound_effect,args=("ocean-waves.mp3",True,0))
     storm_thread.start()
+    storm_thread2.start()
+    ocean_thread.start()
 
     for line in chapter_2_event_1(nama_karakter):
         typewriter(line)
     background_channel.stop()
 
-    print("\n")
-    add_item_to_inventory("Kompas")
-    
     game_state["progres"] = "Badai di Tengah Malam"
     save_checkpoint(game_state)
 
@@ -75,8 +76,14 @@ def chapter2_event1(nama_karakter):
 def chapter2_event2(nama_karakter):
     global game_state
 
+    spaceship_ambient = threading.Thread(target=play_sound_effect,args=("spaceship-ambient.mp3",True,0))
+    ocean_thread = threading.Thread(target=play_sound_effect,args=("ocean-waves.mp3",True,0))
+    spaceship_ambient.start()
+    ocean_thread.start()
+
     for line in chapter_2_event_2(nama_karakter):
         typewriter(line)
+    background_channel.stop()
     game_state["progres"] = "Mengatasi kehausan"
     save_checkpoint(game_state)
 
@@ -96,9 +103,16 @@ def chapter2_event2(nama_karakter):
 
 def chapter2_event3(nama_karakter):
     global game_state
-    # Menampilkan narasi event kedua
+
+    horror_thread = threading.Thread(target=play_sound_effect,args=("Gathering Darkness.mp3",True,0))
+    ocean_thread = threading.Thread(target=play_sound_effect,args=("ocean-waves.mp3",True,0))
+    horror_thread.start()
+    ocean_thread.start()
+    
     for line in chapter_2_event_3(nama_karakter):
         typewriter(line)
+    background_channel.stop()
+    
     game_state["progres"] = "Hantu Kapal Bajak Laut"
     save_checkpoint(game_state)
 
@@ -118,12 +132,16 @@ def chapter2_event3(nama_karakter):
 
 def chapter2_event4(nama_karakter):
     global game_state
+    ocean_thread = threading.Thread(target=play_sound_effect,args=("ocean-waves.mp3",True,0))
+    hammer_thread = threading.Thread(target=play_sound_effect,args=("hammering.mp3",True,0))
+    ocean_thread.start()
+    hammer_thread.start()
 
     for line in chapter_2_event_4(nama_karakter):
         typewriter(line)
-        
+    background_channel.stop()
     print("\n")
-    add_item_to_inventory("Tali")
+    add_item_to_inventory("Tali Tambang")
         
     game_state["progres"] = "Perbaikan Layar yang Rusak"
     save_checkpoint(game_state)
@@ -144,10 +162,16 @@ def chapter2_event4(nama_karakter):
 
 def chapter2_event5(nama_karakter):
     global game_state
-    # Menampilkan narasi event kedua
+
+    mysterious_ambience = threading.Thread(target=play_sound_effect,args=("Mysterious Ambience.mp3",True,0))
+    ocean_thread = threading.Thread(target=play_sound_effect,args=("ocean-waves.mp3",True,0))
+    mysterious_ambience.start()
+    ocean_thread.start()
+    
     for line in chapter_2_event_5(nama_karakter):
         typewriter(line)
-
+    background_channel.stop()
+    
     print("\n")
     add_item_to_inventory("Magnet")
 
@@ -172,12 +196,15 @@ def chapter2_event5(nama_karakter):
 
 def chapter2_event6(nama_karakter):
     global game_state
-    # Menampilkan narasi event kedua
+
+    fishing_thread = threading.Thread(target=play_sound_effect,args=("Fishing Rod Tell.mp3",True,0))
+    ocean_thread = threading.Thread(target=play_sound_effect,args=("ocean-waves.mp3",True,0))
+    fishing_thread.start()
+    ocean_thread.start()
+    
     for line in chapter_2_event_6(nama_karakter):
         typewriter(line)
-        
-    print("\n")
-    add_item_to_inventory("Batu Laut Biru")
+    background_channel.stop()    
         
     game_state["progres"] = "Kehabisan Makanan"
     save_checkpoint(game_state)
@@ -199,9 +226,15 @@ def chapter2_event6(nama_karakter):
 
 def chapter2_event7(nama_karakter):
     global game_state
-    # Menampilkan narasi event kedua
+
+    horror_thread = threading.Thread(target=play_sound_effect,args=("horror.mp3",True,0))
+    ocean_thread = threading.Thread(target=play_sound_effect,args=("ocean-waves.mp3",True,0))
+    horror_thread.start()
+    ocean_thread.start()
+
     for line in chapter_2_event_7(nama_karakter):
         typewriter(line)
+    background_channel.stop()
     game_state["progres"] = "Arfan Membicarakan Kutukan"
     save_checkpoint(game_state)
 
@@ -222,9 +255,17 @@ def chapter2_event7(nama_karakter):
 
 def chapter2_event8(nama_karakter):
     global game_state
-    # Menampilkan narasi event kedua
+
+    bird_thread =  threading.Thread(target=play_sound_effect,args=("bird.mp3",True,0))
+    collapse_thread = threading.Thread(target=play_sound_effect,args=("Building Collapses.mp3",True,0))
+    panic_thread = threading.Thread(target=play_sound_effect,args=("panic.mp3",True,0))
+    bird_thread.start()
+    collapse_thread.start()
+    panic_thread.start()
+    
     for line in chapter_2_event_8(nama_karakter):
         typewriter(line)
+    background_channel.stop()
     game_state["progres"] = "Serangan Burung Laut"
     save_checkpoint(game_state)
 
@@ -247,10 +288,15 @@ def chapter2_event8(nama_karakter):
 
 def chapter2_event9(nama_karakter):
     global game_state
-    # Menampilkan narasi event kedua
+
+    light_thread =  threading.Thread(target=play_sound_effect,args=("Magical Light.mp3",True,0))
+    horror_thread =  threading.Thread(target=play_sound_effect,args=("Dark Tension.mp3",True,0))
+    light_thread.start()
+    horror_thread.start()
+
     for line in chapter_2_event_9(nama_karakter):
         typewriter(line)
-        
+    background_channel.stop()
     print("\n")        
     add_item_to_inventory("Lentera")
         
@@ -277,9 +323,16 @@ def chapter2_event9(nama_karakter):
 def chapter2_event10(nama_karakter):
     global game_state
 
+    ocean_thread = threading.Thread(target=play_sound_effect,args=("ocean-waves.mp3",True,0))
+    wind_thread = threading.Thread(target=play_sound_effect,args=("Creepy Wind.mp3",True,0))
+    mysterious_ambience = threading.Thread(target=play_sound_effect,args=("Mysterious Ambience.mp3",True,0))
+    ocean_thread.start()
+    wind_thread.start()
+    mysterious_ambience.start()
+
     for line in chapter_2_event_10(nama_karakter):
         typewriter(line)
-        
+    background_channel.stop()
     print("\n")
     add_item_to_inventory("Peta Pulau Amba")
     
