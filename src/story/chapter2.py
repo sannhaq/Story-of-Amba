@@ -93,22 +93,29 @@ def chapter_2_event_6(nama_karakter):
 
 def chapter_2_event_7(nama_karakter):
     return [
-        "Di malam yang tenang, Arfan mulai berbicara tentang cerita-cerita lama tentang Pulau Amba dan kutukan yang menyelimuti harta karun Alaric.",
+        "Di malam yang tenang, Arfan mulai berbicara tentang cerita-cerita",
+        "lama tentang Pulau Amba dan kutukan yang menyelimuti harta karun Alaric.",
         f"{nama_karakter} mencoba mendengarkan tanpa terlalu terpengaruh,",
-        "namun ia merasa bulu kuduknya berdiri mendengar deskripsi dari Arfan tentang roh-roh penjaga yang konon menghalangi siapapun yang berusaha merebut harta karun tersebut.",
+        "namun ia merasa bulu kuduknya berdiri mendengar deskripsi dari Arfan",
+        "tentang roh-roh penjaga yang konon menghalangi siapapun",
+        "yang berusaha merebut harta karun tersebut.",
         f"Arfan menatap {nama_karakter} dengan penuh kekhawatiran,",
         "bertanya apakah mereka benar-benar siap menghadapi bahaya besar ini.",
-        f"Meski merasa sedikit gentar, {nama_karakter} menenangkan diri dan memilih untuk tetap fokus pada tujuan."
+        f"Meski merasa sedikit gentar, {nama_karakter} menenangkan diri ",
+        "dan memilih untuk tetap fokus pada tujuan."
     ]
 
 def chapter_2_event_8(nama_karakter):
     return [
         "Tanpa peringatan, sekelompok burung laut tiba-tiba menyerbu kapal mereka.",
-        "Mereka mengepakkan sayap dengan suara keras dan menyerang perbekalan yang tersisa.",
-        f"{nama_karakter} terkejut dan segera mengambil tongkat untuk mengusir burung-burung itu,",
+        "Mereka mengepakkan sayap dengan suara keras",
+        "dan menyerang perbekalan yang tersisa.",
+        f"{nama_karakter} terkejut dan segera mengambil tongkat ",
+        "untuk mengusir burung-burung itu,",
         "namun jumlahnya sangat banyak.",
         "Arfan juga ikut mencoba mengusir mereka, namun situasi semakin kacau.",
-        f"{nama_karakter} harus memilih cara terbaik untuk melindungi kapal mereka dari burung-burung ganas itu."
+        f"{nama_karakter} harus memilih cara terbaik untuk",
+        "melindungi kapal mereka dari burung-burung ganas itu."
     ]
 
 def chapter_2_event_9(nama_karakter):
@@ -116,7 +123,8 @@ def chapter_2_event_9(nama_karakter):
         f"Di malam yang dingin, {nama_karakter} melihat cahaya biru misterius di kejauhan.",
         "Cahaya itu tampak seperti suar yang berkedip di atas air.",
         "Cahaya itu mengundang dan bergerak perlahan mendekati kapal mereka.",
-        "Arfan menatapnya dengan waspada, mengingatkannya bahwa ada kisah tentang roh penjaga laut yang sering menampakkan diri dalam bentuk cahaya.",
+        "Arfan menatapnya dengan waspada, mengingatkannya bahwa ada kisah ",
+        "tentang roh penjaga laut yang sering menampakkan diri dalam bentuk cahaya.",
         f"{nama_karakter} ragu, namun rasa penasaran dalam dirinya menguat.",
         "Apa yang akan ia lakukan menghadapi cahaya misterius itu?"
     ]
@@ -127,7 +135,10 @@ def chapter_2_event_10(nama_karakter):
         f"{nama_karakter} dan Arfan akhirnya melihat Pulau Amba di kejauhan.",
         "Kabut tipis menyelimuti pulau tersebut, membuatnya terlihat samar dan menyeramkan.",
         "Bukit-bukit batu tampak menjulang di tengah pulau, dikelilingi hutan lebat yang gelap.",
-        f"{nama_karakter} merasakan jantungnya berdebar-debar, teringat pada surat Alaric yang memperingatkan bahwa pulau ini tidak bisa dijamah sembarang orang.",
+        f"{nama_karakter} merasakan jantungnya berdebar-debar, ",
+        "teringat pada surat Alaric yang memperingatkan bahwa pulau ",
+        "ini tidak bisa dijamah sembarang orang.",
         "Ia merasa langkah ini akan menentukan segalanya.",
-        "Dengan keyakinan terakhirnya, ia mengarahkan kapal mereka ke arah pantai berpasir hitam, tempat petualangan sesungguhnya akan dimulai."
+        "Dengan keyakinan terakhirnya, ia mengarahkan kapal mereka ",
+        "ke arah pantai berpasir hitam, tempat petualangan sesungguhnya akan dimulai."
     ]
