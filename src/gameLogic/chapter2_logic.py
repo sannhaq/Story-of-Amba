@@ -264,7 +264,7 @@ def chapter2_event7(nama_karakter):
     # Pilihan aksi pemain
     typewriter("Apa yang ingin kamu lakukan?")
     options = [
-        {"name": "Percaya pada cerita Arfan dan berdoa untuk keselamatan", "value": "percaya"},
+        {"name": "Percaya pada cerita Arfan dan berdoa untuk keselamatan.", "value": "percaya"},
         {"name": "Abaikan cerita tersebut dan memilih tetap fokus pada tujuan.", "value": "abaikan"}
     ]
 
