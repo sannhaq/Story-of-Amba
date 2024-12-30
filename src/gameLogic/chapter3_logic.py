@@ -289,7 +289,7 @@ def chapter3_event9(nama_karakter):
     typewriter("Apa yang ingin kamu lakukan?")
     options = [
     {"name": "Memeriksa jalur dengan hati-hati dan mencoba menghindari jebakan.", "value": "memeriksa"},
-    {"name": "Masuk tanpa melihat tanda-tanda di lantai dan mengambil risiko tersandung jebakan.", "value": "tanpa melhat"}
+    {"name": "Masuk tanpa melihat tanda-tanda di lantai dan mengambil risiko tersandung jebakan.", "value": "tanpa melihat"}
     ]
     
     event_mapping = {
